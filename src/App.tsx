@@ -4,25 +4,29 @@ import { ClassicPage } from "./pages/classic";
 import { TBCPage } from "./pages/tbc";
 import { SLPage } from "./pages/sl";
 import { HomePage } from "./pages/home";
+import { CssBaseline } from "@material-ui/core";
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path={"/classic"}>
-          <ClassicPage />
-        </Route>
-        <Route path={"/tbc"}>
-          <TBCPage />
-        </Route>
-        <Route path={"/sl"}>
-          <SLPage />
-        </Route>
-        <Route path={"/"}>
-          <HomePage />
-        </Route>
-      </Switch>
-    </Router>
+    <>
+      <CssBaseline />
+      <Router>
+        <Switch>
+          <Route path={"/classic"}>
+            <ClassicPage />
+          </Route>
+          <Route path={"/tbc"}>
+            <TBCPage />
+          </Route>
+          <Route path={"/sl"}>
+            <SLPage />
+          </Route>
+          <Route path={"/"}>
+            <HomePage />
+          </Route>
+        </Switch>
+      </Router>
+    </>
   );
 }
 
