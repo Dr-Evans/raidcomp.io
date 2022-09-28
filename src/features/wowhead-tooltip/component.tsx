@@ -7,7 +7,7 @@ export interface PublicProps {
   itemID?: string;
   achievementID?: string;
   href?: string;
-  children?: React.ReactElement;
+  children?: React.ReactElement | string;
 
   // Renames to tooltip name if set to true
   rename?: boolean;
@@ -27,6 +27,9 @@ const buildWowheadURL = (
       break;
     case Expansion.BurningCrusade:
       urlSubdomain = "tbc.";
+      break;
+    case Expansion.WrathOfTheLichKing:
+      urlSubdomain = "wotlk.";
       break;
     case Expansion.Shadowlands:
       urlSubdomain = "www.";

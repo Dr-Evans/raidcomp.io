@@ -4,6 +4,7 @@ import { ClassicPage } from "./pages/classic";
 import { TBCPage } from "./pages/tbc";
 import { SLPage } from "./pages/sl";
 import { HomePage } from "./pages/home";
+import { WrathPage } from "./pages/wrath";
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
           </Route>
           <Route path={"/tbc"}>
             <TBCPage />
+          </Route>
+          <Route path={"/wrath"}>
+            <WrathPage />
           </Route>
           <Route path={"/sl"}>
             <SLPage />

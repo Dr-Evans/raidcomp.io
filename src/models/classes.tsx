@@ -11,6 +11,7 @@ export enum ClassID {
   Shaman = "shaman",
   Warlock = "warlock",
   Warrior = "warrior",
+  Invoker = "invoker",
 }
 
 export interface Class {

@@ -7,4 +7,5 @@ export enum Expansion {
   Legion = "legion",
   BattleForAzeroth = "bfa",
   Shadowlands = "sl",
+  Dragonflight = "df",
 }
