@@ -1,7 +1,7 @@
-import { Expansion } from "../../models";
+import { ExpansionID } from "../../models";
 
 export interface PublicProps {
-  expansion: Expansion;
+  expansion: ExpansionID;
   spellID?: string;
   questID?: string;
   itemID?: string;
@@ -14,7 +14,7 @@ export interface PublicProps {
 }
 
 const buildWowheadURL = (
-  expansion: Expansion,
+  expansion: ExpansionID,
   spellID?: string,
   questID?: string,
   itemID?: string,
@@ -22,16 +22,16 @@ const buildWowheadURL = (
 ): string => {
   let urlSubdomain: string | undefined;
   switch (expansion) {
-    case Expansion.Classic:
+    case ExpansionID.Classic:
       urlSubdomain = "classic.";
       break;
-    case Expansion.BurningCrusade:
+    case ExpansionID.BurningCrusade:
       urlSubdomain = "tbc.";
       break;
-    case Expansion.WrathOfTheLichKing:
+    case ExpansionID.WrathOfTheLichKing:
       urlSubdomain = "wotlk.";
       break;
-    case Expansion.Shadowlands:
+    case ExpansionID.Shadowlands:
       urlSubdomain = "www.";
       break;
     default:

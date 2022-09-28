@@ -1,4 +1,4 @@
-export enum Expansion {
+export enum ExpansionID {
   Classic = "classic",
   BurningCrusade = "tbc",
   WrathOfTheLichKing = "wotlk",

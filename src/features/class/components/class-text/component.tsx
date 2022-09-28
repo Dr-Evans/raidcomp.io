@@ -1,7 +1,8 @@
-import { classesMap, ClassID } from "../../../../models";
-import React from "react";
+import { ClassID } from "../../../../models";
+import React, { useContext } from "react";
 import { ClassIcon, IconSize } from "../class-icon";
 import Box from "@mui/material/Box";
+import { ExpansionContext } from "../../../../db";
 
 export interface PublicProps {
   classID: ClassID;
@@ -18,7 +19,7 @@ export const ClassText: React.FC<Props> = ({
   onClick,
   children,
 }) => {
-  const { hexColor } = classesMap[classID];
+  let { getClassByID } = useContext(ExpansionContext);
 
   return (
     <Box display="flex" alignItems={"center"}>
@@ -29,7 +30,7 @@ export const ClassText: React.FC<Props> = ({
       )}
       <Box
         component={"span"}
-        style={{ color: `#${hexColor}` }}
+        style={{ color: `#${getClassByID(classID).hexColor}` }}
         onClick={onClick}
       >
         {children}

@@ -1,24 +1,24 @@
 import { WowheadTooltip } from "./component";
 import { shallow } from "enzyme";
-import { Expansion } from "../../models";
+import { ExpansionID } from "../../models";
 
 describe("WowheadTooltip", () => {
   it("should throw an error with an unsupported expansion", function () {
     expect(() =>
-      shallow(<WowheadTooltip expansion={Expansion.Cataclysm} />)
+      shallow(<WowheadTooltip expansion={ExpansionID.Cataclysm} />)
     ).toThrowError();
   });
 
   it("should throw an error with no items", function () {
     expect(() =>
-      shallow(<WowheadTooltip expansion={Expansion.Classic} />)
+      shallow(<WowheadTooltip expansion={ExpansionID.Classic} />)
     ).toThrowError();
   });
 
   it("should render spell correctly", function () {
     const wrapper = shallow(
       <WowheadTooltip
-        expansion={Expansion.Shadowlands}
+        expansion={ExpansionID.Shadowlands}
         spellID={"test-spell-id"}
       />
     );
@@ -31,7 +31,7 @@ describe("WowheadTooltip", () => {
   it("should render achievement correctly", function () {
     const wrapper = shallow(
       <WowheadTooltip
-        expansion={Expansion.Shadowlands}
+        expansion={ExpansionID.Shadowlands}
         achievementID={"test-achievement-id"}
       />
     );
@@ -44,7 +44,7 @@ describe("WowheadTooltip", () => {
   it("should render item correctly", function () {
     const wrapper = shallow(
       <WowheadTooltip
-        expansion={Expansion.Shadowlands}
+        expansion={ExpansionID.Shadowlands}
         itemID={"test-item-id"}
       />
     );
@@ -57,7 +57,7 @@ describe("WowheadTooltip", () => {
   it("should render quest correctly", function () {
     const wrapper = shallow(
       <WowheadTooltip
-        expansion={Expansion.Shadowlands}
+        expansion={ExpansionID.Shadowlands}
         questID={"test-quest-id"}
       />
     );
@@ -72,7 +72,7 @@ describe("WowheadTooltip", () => {
 
     const wrapper = shallow(
       <WowheadTooltip
-        expansion={Expansion.Shadowlands}
+        expansion={ExpansionID.Shadowlands}
         questID={"test-quest-id"}
         href={"twitch.tv/slaye"}
       />
