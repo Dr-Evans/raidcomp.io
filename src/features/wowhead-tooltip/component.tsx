@@ -7,6 +7,7 @@ export interface PublicProps {
   itemID?: string;
   achievementID?: string;
   href?: string;
+  children?: React.ReactElement;
 
   // Renames to tooltip name if set to true
   rename?: boolean;

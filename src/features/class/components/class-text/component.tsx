@@ -7,6 +7,7 @@ export interface PublicProps {
   classID: ClassID;
   icon?: boolean;
   onClick?: () => void;
+  children: string;
 }
 
 type Props = PublicProps;
