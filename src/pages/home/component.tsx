@@ -1,4 +1,4 @@
-import { Box } from "@material-ui/core";
+import Box from "@mui/material/Box";
 import { ClassID } from "../../models";
 import { ClassText } from "../../features/class/components/class-text";
 

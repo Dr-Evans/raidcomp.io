@@ -1,7 +1,7 @@
 import { classesMap, ClassID } from "../../../../models";
 import React from "react";
 import { ClassIcon, IconSize } from "../class-icon";
-import { Box } from "@material-ui/core";
+import Box from "@mui/material/Box";
 
 export interface PublicProps {
   classID: ClassID;
