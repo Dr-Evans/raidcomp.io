@@ -2,14 +2,17 @@ import React from "react";
 import { Card, Grid } from "@mui/material";
 import { Player } from "../../../../../../models/player";
 import { MAX_PARTY_SIZE } from "../../../../../../models/contants";
+import { PlayerItem } from "./components/player-item";
+import { PlaceholderItem } from "./components/placeholder-item";
 
 interface PublicProps {
   party: (Player | undefined)[];
+  onRemoveButtonClick?: (player: Player) => void;
 }
 
 export type Props = PublicProps;
 
-export const PartyList: React.FC<Props> = ({ party }) => {
+export const PartyList: React.FC<Props> = ({ party, onRemoveButtonClick }) => {
   if (party.length > MAX_PARTY_SIZE) {
     throw new Error("Too many players passed in!");
   }
@@ -21,10 +24,17 @@ export const PartyList: React.FC<Props> = ({ party }) => {
 
   return (
     <Card>
-      <Grid container direction={"column"}>
+      <Grid container direction={"column"} p={1}>
         {paddedParty.map((player, index) => (
-          <Grid item border={1} height={20} key={player ? player.id : index}>
-            {player ? player.specialization.id : ""}
+          <Grid item key={player ? player.id : index}>
+            {player ? (
+              <PlayerItem
+                player={player}
+                onRemoveButtonClick={onRemoveButtonClick}
+              />
+            ) : (
+              <PlaceholderItem />
+            )}
           </Grid>
         ))}
       </Grid>

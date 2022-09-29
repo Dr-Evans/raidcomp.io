@@ -22,17 +22,44 @@ export const RaidCompPage: React.FC<Props> = ({ expansionID }) => {
         expansionID={expansionID}
         onSpecClick={(newSpec) => {
           if (players.length < MAX_RAID_SIZE) {
+            const newPlayer: Player = {
+              id: uuidv4(),
+              specialization: newSpec,
+            };
+
+            // Find first undefined
+            let indexToInsert = players.findIndex(
+              (player) => player === undefined
+            );
+
+            // If none, append to end
+            if (indexToInsert < 0) {
+              indexToInsert = players.length;
+            }
+
+            // Replace spot
             setPlayers([
-              ...players,
-              {
-                id: uuidv4(),
-                specialization: newSpec,
-              },
+              ...players.slice(0, indexToInsert),
+              newPlayer,
+              ...players.slice(indexToInsert + 1),
             ]);
           }
         }}
       />
-      <RaidList players={players} />
+      <RaidList
+        players={players}
+        onRemoveButtonClick={(playerToRemove) => {
+          const indexToRemove = players.findIndex(
+            (player) => player?.id === playerToRemove.id
+          );
+
+          setPlayers([
+            ...players.slice(0, indexToRemove),
+            undefined,
+            ...players.slice(indexToRemove + 1),
+          ]);
+        }}
+      />
     </Box>
   );
 };

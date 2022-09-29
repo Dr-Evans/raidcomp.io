@@ -6,11 +6,12 @@ import { MAX_PARTY_SIZE, MAX_RAID_SIZE } from "../../../../models/contants";
 
 interface PublicProps {
   players: (Player | undefined)[];
+  onRemoveButtonClick?: (player: Player) => void;
 }
 
 export type Props = PublicProps;
 
-export const RaidList: React.FC<Props> = ({ players }) => {
+export const RaidList: React.FC<Props> = ({ players, onRemoveButtonClick }) => {
   const raid = [
     ...players,
     ...new Array(MAX_RAID_SIZE - players.length).fill(undefined),
@@ -21,7 +22,6 @@ export const RaidList: React.FC<Props> = ({ players }) => {
     parties = [...parties, [...raid.slice(i, i + MAX_PARTY_SIZE)]];
   }
 
-  console.log(parties);
   return (
     <Grid container spacing={2}>
       {parties.map((party, index) => {
@@ -34,7 +34,10 @@ export const RaidList: React.FC<Props> = ({ players }) => {
         return (
           <Grid item xs={3} key={partyKey}>
             <Typography>{`Group ${index + 1}`}</Typography>
-            <PartyList party={party} />
+            <PartyList
+              party={party}
+              onRemoveButtonClick={onRemoveButtonClick}
+            />
           </Grid>
         );
       })}
