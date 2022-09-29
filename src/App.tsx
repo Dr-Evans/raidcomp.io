@@ -1,30 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
   Redirect,
+  Route,
+  Switch,
 } from "react-router-dom";
 import { HomePage } from "./pages/home";
 import { RaidCompPage } from "./pages/raid-comp";
-import { ExpansionID } from "./models";
-import { ExpansionContext } from "./db";
-import { WrathDB } from "./db/wrath";
+import { ExpansionID, getExpansionID } from "./models";
+import { ThemeProvider } from "@mui/material";
+import { getExpansionDB } from "./models/db";
 
 const supportedExpansions = {
-  // TODO: Add other expansionDBs
   [ExpansionID.Classic]: true,
   [ExpansionID.BurningCrusade]: true,
-  [ExpansionID.WrathOfTheLichKing]: WrathDB,
+  [ExpansionID.WrathOfTheLichKing]: true,
 };
 
 function App() {
+  const [expansionID, setExpansionID] = useState(ExpansionID.Classic);
+
   return (
-    <>
+    <ThemeProvider theme={getExpansionDB(expansionID).theme}>
       <Router>
         <Switch>
           <Route exact path={"/"}>
-            <HomePage />
+            <HomePage
+              onExpansionHover={(hoveredExpansionID) =>
+                setExpansionID(hoveredExpansionID)
+              }
+            />
           </Route>
           <Route
             path={"/:expansionID"}
@@ -32,10 +37,9 @@ function App() {
               Object.keys(supportedExpansions).includes(
                 match!.params.expansionID
               ) ? (
-                // TODO: Switch case to select DBs
-                <ExpansionContext.Provider value={WrathDB}>
-                  <RaidCompPage />
-                </ExpansionContext.Provider>
+                <RaidCompPage
+                  expansionID={getExpansionID(match!.params.expansionID)}
+                />
               ) : (
                 <Redirect to={"/"} />
               )
@@ -43,7 +47,7 @@ function App() {
           />
         </Switch>
       </Router>
-    </>
+    </ThemeProvider>
   );
 }
 

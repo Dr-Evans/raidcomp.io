@@ -1,72 +1,35 @@
-import {
-  BuffSubType,
-  BuffType,
-  Class,
-  ClassID,
-  ExpansionID,
-  SpecializationRole,
-} from "../../models";
+import { Class, ClassID, ExpansionID, SpecializationRole } from "../../index";
 import { ExpansionDB } from "../db";
+import { createTheme, ThemeOptions } from "@mui/material";
 
 const classes: Class[] = [
   {
-    id: ClassID.DeathKnight,
-    hexColor: "C41E3A",
-    specs: [
-      {
-        id: "blood",
-        role: SpecializationRole.Tank,
-        buffs: [
-          {
-            id: "53138",
-            type: BuffType.RaidBuff,
-            subType: BuffSubType.TenPercentAttackPower,
-          },
-          {
-            id: "55610",
-            type: BuffType.RaidBuff,
-            subType: BuffSubType.MeleeHaste,
-          },
-          {
-            id: "57623",
-            type: BuffType.RaidBuff,
-            subType: BuffSubType.StrengthAndAgility,
-          },
-        ],
-      },
-      {
-        id: "frost",
-        role: SpecializationRole.MeleeDPS,
-        buffs: [],
-      },
-      {
-        id: "unholy",
-        role: SpecializationRole.MeleeDPS,
-        buffs: [],
-      },
-    ],
-  },
-  {
     id: ClassID.Druid,
-    hexColor: "FF7C0A",
+    hexColor: "#FF7C0A",
     specs: [
       {
         id: "balance",
+        classID: ClassID.Druid,
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
         id: "feral-bear",
+        classID: ClassID.Druid,
         role: SpecializationRole.Tank,
         buffs: [],
       },
       {
         id: "feral-cat",
+        classID: ClassID.Druid,
+
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
         id: "restoration",
+        classID: ClassID.Druid,
+
         role: SpecializationRole.Healer,
         buffs: [],
       },
@@ -74,20 +37,26 @@ const classes: Class[] = [
   },
   {
     id: ClassID.Hunter,
-    hexColor: "AAD372",
+    hexColor: "#AAD372",
     specs: [
       {
         id: "beast-mastery",
+        classID: ClassID.Hunter,
+
         role: SpecializationRole.RangedDPS,
         buffs: [],
       },
       {
         id: "marksmanship",
+        classID: ClassID.Hunter,
+
         role: SpecializationRole.RangedDPS,
         buffs: [],
       },
       {
         id: "survival",
+        classID: ClassID.Hunter,
+
         role: SpecializationRole.RangedDPS,
         buffs: [],
       },
@@ -95,20 +64,26 @@ const classes: Class[] = [
   },
   {
     id: ClassID.Mage,
-    hexColor: "3FC7EB",
+    hexColor: "#3FC7EB",
     specs: [
       {
         id: "arcane",
+        classID: ClassID.Mage,
+
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
         id: "fire",
+
+        classID: ClassID.Mage,
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
         id: "frost",
+
+        classID: ClassID.Mage,
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
@@ -116,20 +91,25 @@ const classes: Class[] = [
   },
   {
     id: ClassID.Paladin,
-    hexColor: "F48CBA",
+    hexColor: "#F48CBA",
     specs: [
       {
         id: "holy",
+        classID: ClassID.Paladin,
         role: SpecializationRole.Healer,
         buffs: [],
       },
       {
         id: "protection",
+        classID: ClassID.Paladin,
+
         role: SpecializationRole.Tank,
         buffs: [],
       },
       {
         id: "retribution",
+        classID: ClassID.Paladin,
+
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
@@ -137,20 +117,25 @@ const classes: Class[] = [
   },
   {
     id: ClassID.Priest,
-    hexColor: "FFFFFF",
+    hexColor: "#FFFFFF",
     specs: [
       {
         id: "discipline",
+        classID: ClassID.Priest,
         role: SpecializationRole.Healer,
         buffs: [],
       },
       {
         id: "holy",
+        classID: ClassID.Priest,
+
         role: SpecializationRole.Healer,
         buffs: [],
       },
       {
         id: "shadow",
+        classID: ClassID.Priest,
+
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
@@ -158,20 +143,26 @@ const classes: Class[] = [
   },
   {
     id: ClassID.Rogue,
-    hexColor: "FFF468",
+    hexColor: "#FFF468",
     specs: [
       {
         id: "assassination",
+        classID: ClassID.Rogue,
+
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
         id: "combat",
+        classID: ClassID.Rogue,
+
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
         id: "subtlety",
+        classID: ClassID.Rogue,
+
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
@@ -179,20 +170,26 @@ const classes: Class[] = [
   },
   {
     id: ClassID.Shaman,
-    hexColor: "0070DD",
+    hexColor: "#0070DD",
     specs: [
       {
         id: "elemental",
+        classID: ClassID.Shaman,
+
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
         id: "enhancement",
+        classID: ClassID.Shaman,
+
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
         id: "restoration",
+        classID: ClassID.Shaman,
+
         role: SpecializationRole.Healer,
         buffs: [],
       },
@@ -200,20 +197,26 @@ const classes: Class[] = [
   },
   {
     id: ClassID.Warlock,
-    hexColor: "8788EE",
+    hexColor: "#8788EE",
     specs: [
       {
         id: "affliction",
+        classID: ClassID.Warlock,
+
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
         id: "demonology",
+        classID: ClassID.Warlock,
+
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
         id: "destruction",
+        classID: ClassID.Warlock,
+
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
@@ -221,20 +224,25 @@ const classes: Class[] = [
   },
   {
     id: ClassID.Warrior,
-    hexColor: "C69B6D",
+    hexColor: "#C69B6D",
     specs: [
       {
         id: "arms",
+        classID: ClassID.Warrior,
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
         id: "fury",
+        classID: ClassID.Warrior,
+
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
         id: "protection",
+        classID: ClassID.Warrior,
+
         role: SpecializationRole.Tank,
         buffs: [],
       },
@@ -247,12 +255,24 @@ const classesMap = classes.reduce((map, wowClass) => {
   return map;
 }, {} as { [id: string]: Class });
 
-export const WrathDB: ExpansionDB = {
-  id: ExpansionID.WrathOfTheLichKing,
+const themeOptions: ThemeOptions = {
+  palette: {
+    primary: {
+      main: "#2F2B2A",
+    },
+    secondary: {
+      main: "#D5BB9B",
+    },
+  },
+};
+
+export const ClassicDB: ExpansionDB = {
+  id: ExpansionID.Classic,
   getAllClasses() {
     return classes;
   },
   getClassByID(classID) {
     return classesMap[classID];
   },
+  theme: createTheme(themeOptions),
 };

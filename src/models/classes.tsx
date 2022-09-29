@@ -35,5 +35,6 @@ export enum SpecializationRole {
 export interface Specialization {
   id: string;
   role: SpecializationRole;
+  classID: ClassID;
   buffs: Buff[];
 }

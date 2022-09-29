@@ -1,24 +1,41 @@
-import Box from "@mui/material/Box";
-import { ClassID, ExpansionID } from "../../models";
-import { ClassText } from "../../features/class/components/class-text";
-import {
-  ClassIcon,
-  IconSize,
-} from "../../features/class/components/class-icon";
-import { WowheadTooltip } from "../../features/wowhead-tooltip";
+import { Button, ButtonGroup, Grid } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import { ExpansionID } from "../../models";
 
-export const HomePage = () => {
+export interface HomePageProps {
+  onExpansionHover: (selectedExpansion: ExpansionID) => void;
+}
+
+export const HomePage: React.FC<HomePageProps> = ({ onExpansionHover }) => {
   return (
-    <>
-      <Box>Home Page</Box>
-      <ClassText classID={ClassID.DeathKnight}>Death Knight</ClassText>
-      <ClassIcon classID={ClassID.DeathKnight} size={IconSize.Large} />
-      <WowheadTooltip
-        expansion={ExpansionID.WrathOfTheLichKing}
-        spellID={"49576"}
-      >
-        Hello
-      </WowheadTooltip>
-    </>
+    <Grid container spacing={2} minHeight={160}>
+      <Grid item xs display="flex" justifyContent="center" alignItems="center">
+        <ButtonGroup orientation="vertical">
+          <Button
+            component={RouterLink}
+            to={`/${ExpansionID.Classic}`}
+            onMouseEnter={() => onExpansionHover(ExpansionID.Classic)}
+          >
+            Classic
+          </Button>
+          <Button
+            component={RouterLink}
+            to={`/${ExpansionID.BurningCrusade}`}
+            onMouseEnter={() => onExpansionHover(ExpansionID.BurningCrusade)}
+          >
+            Burning Crusade
+          </Button>
+          <Button
+            component={RouterLink}
+            to={`/${ExpansionID.WrathOfTheLichKing}`}
+            onMouseEnter={() =>
+              onExpansionHover(ExpansionID.WrathOfTheLichKing)
+            }
+          >
+            Wrath of the Lich King
+          </Button>
+        </ButtonGroup>
+      </Grid>
+    </Grid>
   );
 };
