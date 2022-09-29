@@ -15,7 +15,7 @@ const classes: Class[] = [
     hexColor: "#C41E3A",
     specs: [
       {
-        id: "blood",
+        id: "death-knight-blood",
         classID: ClassID.DeathKnight,
         role: SpecializationRole.Tank,
         buffs: [
@@ -37,13 +37,13 @@ const classes: Class[] = [
         ],
       },
       {
-        id: "frost",
+        id: "death-knight-frost",
         classID: ClassID.DeathKnight,
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "unholy",
+        id: "death-knight-unholy",
         classID: ClassID.DeathKnight,
         role: SpecializationRole.MeleeDPS,
         buffs: [],
@@ -55,26 +55,26 @@ const classes: Class[] = [
     hexColor: "#FF7C0A",
     specs: [
       {
-        id: "balance",
+        id: "druid-balance",
         classID: ClassID.Druid,
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "feral-bear",
+        id: "druid-feral-bear",
         classID: ClassID.Druid,
         role: SpecializationRole.Tank,
         buffs: [],
       },
       {
-        id: "feral-cat",
+        id: "druid-feral-cat",
         classID: ClassID.Druid,
 
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "restoration",
+        id: "druid-restoration",
         classID: ClassID.Druid,
 
         role: SpecializationRole.Healer,
@@ -87,21 +87,21 @@ const classes: Class[] = [
     hexColor: "#AAD372",
     specs: [
       {
-        id: "beast-mastery",
+        id: "hunter-beast-mastery",
         classID: ClassID.Hunter,
 
         role: SpecializationRole.RangedDPS,
         buffs: [],
       },
       {
-        id: "marksmanship",
+        id: "hunter-marksmanship",
         classID: ClassID.Hunter,
 
         role: SpecializationRole.RangedDPS,
         buffs: [],
       },
       {
-        id: "survival",
+        id: "hunter-survival",
         classID: ClassID.Hunter,
 
         role: SpecializationRole.RangedDPS,
@@ -114,21 +114,21 @@ const classes: Class[] = [
     hexColor: "#3FC7EB",
     specs: [
       {
-        id: "arcane",
+        id: "mage-arcane",
         classID: ClassID.Mage,
 
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "fire",
+        id: "mage-fire",
 
         classID: ClassID.Mage,
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "frost",
+        id: "mage-frost",
 
         classID: ClassID.Mage,
         role: SpecializationRole.MagicDPS,
@@ -141,20 +141,20 @@ const classes: Class[] = [
     hexColor: "#F48CBA",
     specs: [
       {
-        id: "holy",
+        id: "paladin-holy",
         classID: ClassID.Paladin,
         role: SpecializationRole.Healer,
         buffs: [],
       },
       {
-        id: "protection",
+        id: "paladin-protection",
         classID: ClassID.Paladin,
 
         role: SpecializationRole.Tank,
         buffs: [],
       },
       {
-        id: "retribution",
+        id: "paladin-retribution",
         classID: ClassID.Paladin,
 
         role: SpecializationRole.MeleeDPS,
@@ -167,20 +167,20 @@ const classes: Class[] = [
     hexColor: "#FFFFFF",
     specs: [
       {
-        id: "discipline",
+        id: "priest-discipline",
         classID: ClassID.Priest,
         role: SpecializationRole.Healer,
         buffs: [],
       },
       {
-        id: "holy",
+        id: "priest-holy",
         classID: ClassID.Priest,
 
         role: SpecializationRole.Healer,
         buffs: [],
       },
       {
-        id: "shadow",
+        id: "priest-shadow",
         classID: ClassID.Priest,
 
         role: SpecializationRole.MagicDPS,
@@ -193,21 +193,19 @@ const classes: Class[] = [
     hexColor: "#FFF468",
     specs: [
       {
-        id: "assassination",
+        id: "rogue-assassination",
         classID: ClassID.Rogue,
-
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "combat",
+        id: "rogue-combat",
         classID: ClassID.Rogue,
-
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "subtlety",
+        id: "rogue-subtlety",
         classID: ClassID.Rogue,
 
         role: SpecializationRole.MeleeDPS,
@@ -220,21 +218,21 @@ const classes: Class[] = [
     hexColor: "#0070DD",
     specs: [
       {
-        id: "elemental",
+        id: "shaman-elemental",
         classID: ClassID.Shaman,
 
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "enhancement",
+        id: "shaman-enhancement",
         classID: ClassID.Shaman,
 
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "restoration",
+        id: "shaman-restoration",
         classID: ClassID.Shaman,
 
         role: SpecializationRole.Healer,
@@ -247,21 +245,21 @@ const classes: Class[] = [
     hexColor: "#8788EE",
     specs: [
       {
-        id: "affliction",
+        id: "warlock-affliction",
         classID: ClassID.Warlock,
 
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "demonology",
+        id: "warlock-demonology",
         classID: ClassID.Warlock,
 
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "destruction",
+        id: "warlock-destruction",
         classID: ClassID.Warlock,
 
         role: SpecializationRole.MagicDPS,
@@ -274,20 +272,20 @@ const classes: Class[] = [
     hexColor: "#C69B6D",
     specs: [
       {
-        id: "arms",
+        id: "warrior-arms",
         classID: ClassID.Warrior,
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "fury",
+        id: "warrior-fury",
         classID: ClassID.Warrior,
 
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "protection",
+        id: "warrior-protection",
         classID: ClassID.Warrior,
 
         role: SpecializationRole.Tank,
