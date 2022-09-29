@@ -3,6 +3,7 @@ import { Grid, Typography } from "@mui/material";
 import { PartyList } from "./components/party-list";
 import { Player } from "../../../../models/player";
 import { MAX_PARTY_SIZE, MAX_RAID_SIZE } from "../../../../models/contants";
+import { FormattedMessage } from "react-intl";
 
 interface PublicProps {
   players: (Player | undefined)[];
@@ -33,7 +34,14 @@ export const RaidList: React.FC<Props> = ({ players, onRemoveButtonClick }) => {
 
         return (
           <Grid item xs={3} key={partyKey}>
-            <Typography>{`Group ${index + 1}`}</Typography>
+            <Typography>
+              <FormattedMessage
+                id={"group-title-text"}
+                description={"Title shown above each party"}
+                defaultMessage={"Group {numOfGroup}"}
+                values={{ numOfGroup: index + 1 }}
+              />
+            </Typography>
             <PartyList
               party={party}
               onRemoveButtonClick={onRemoveButtonClick}
