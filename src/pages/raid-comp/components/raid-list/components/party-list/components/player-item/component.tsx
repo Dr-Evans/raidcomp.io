@@ -1,5 +1,5 @@
 import { Player } from "../../../../../../../../models/player";
-import { Grid, IconButton, Tooltip, Typography } from "@mui/material";
+import { Box, Grid, IconButton, Tooltip, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Clear } from "@mui/icons-material";
 import { FormattedMessage } from "react-intl";
@@ -26,32 +26,28 @@ export const PlayerItem: React.FC<Props> = ({
         onMouseLeave={() => setIsHovered(false)}
       >
         <Typography>{player.specialization.id}</Typography>
-        <Grid
-          position={"absolute"}
-          display={isHovered ? "flex" : "none"}
-          right={0}
-          top={0}
-          bottom={0}
-        >
-          <Tooltip
-            title={
-              <FormattedMessage
-                id={"remove-tooltip-text"}
-                description={
-                  "Tooltip button text to remove player from raid list"
-                }
-                defaultMessage={"Remove"}
-              />
-            }
-          >
-            <IconButton
-              onClick={() => onRemoveButtonClick?.(player)}
-              size={"small"}
+        {isHovered && (
+          <Box position={"absolute"} right={0} top={0} bottom={0}>
+            <Tooltip
+              title={
+                <FormattedMessage
+                  id={"remove-tooltip-text"}
+                  description={
+                    "Tooltip button text to remove player from raid list"
+                  }
+                  defaultMessage={"Remove"}
+                />
+              }
             >
-              <Clear />
-            </IconButton>
-          </Tooltip>
-        </Grid>
+              <IconButton
+                onClick={() => onRemoveButtonClick?.(player)}
+                size={"small"}
+              >
+                <Clear />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        )}
       </Grid>
     </>
   );
