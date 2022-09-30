@@ -30,6 +30,8 @@ export const PlayerItem: React.FC<Props> = ({
           position={"absolute"}
           display={isHovered ? "flex" : "none"}
           right={0}
+          top={0}
+          bottom={0}
         >
           <Tooltip
             title={
