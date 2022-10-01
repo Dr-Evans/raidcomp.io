@@ -86,7 +86,17 @@ export const RaidCompPage: React.FC<Props> = ({ expansionID }) => {
 
             setPlayers(newPlayers);
           }}
-          onPlayerEdit={() => {}}
+          onPlayerEdit={(newPlayer) => {
+            let indexToReplace = players.findIndex(
+              (p) => p?.id === newPlayer.id
+            );
+
+            setPlayers([
+              ...players.slice(0, indexToReplace),
+              newPlayer,
+              ...players.slice(indexToReplace + 1),
+            ]);
+          }}
         />
       </Box>
     </Box>

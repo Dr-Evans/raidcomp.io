@@ -18,6 +18,7 @@ export const RaidList: React.FC<Props> = ({
   players,
   onPlayerRemove,
   onPlayerAdd,
+  onPlayerEdit,
 }) => {
   let parties: (Player | undefined)[][] = [];
   for (let i = 0; i < players.length; i = i + MAX_PARTY_SIZE) {
@@ -51,7 +52,7 @@ export const RaidList: React.FC<Props> = ({
                 onPlayerAdd={(p, toIndex, fromIndex) =>
                   onPlayerAdd(p, toIndex, fromIndex)
                 }
-                onPlayerEdit={() => {}}
+                onPlayerEdit={onPlayerEdit}
               />
             </Box>
           </Grid>

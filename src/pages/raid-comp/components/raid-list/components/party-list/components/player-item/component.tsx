@@ -1,7 +1,7 @@
 import { Player } from "../../../../../../../../models/player";
-import { Box, IconButton, Tooltip, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { Clear } from "@mui/icons-material";
+import { Box, IconButton, TextField, Tooltip, Typography } from "@mui/material";
+import React, { useRef, useState } from "react";
+import { Clear, Edit } from "@mui/icons-material";
 import { FormattedMessage } from "react-intl";
 import {
   getSpecializationIDText,
@@ -17,6 +17,7 @@ interface PublicProps {
   raidIndex: number;
   onRemoveButtonClick?: (player: Player) => void;
   onDrop?: (player: Player, fromIndex?: number) => void;
+  onNameInputSubmit?: (newPlayer: Player, oldPlayer: Player) => void;
 }
 
 export type Props = PublicProps;
@@ -26,8 +27,12 @@ export const PlayerItem: React.FC<Props> = ({
   raidIndex,
   onRemoveButtonClick,
   onDrop,
+  onNameInputSubmit,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const [newName, setNewName] = useState(player?.name);
   const [{ isOver }, dropRef] = useDrop(
     () => ({
       accept: [ItemType.Specialization, ItemType.Player],
@@ -53,13 +58,16 @@ export const PlayerItem: React.FC<Props> = ({
     [onDrop]
   );
 
-  const [, dragRef] = useDrag(() => ({
-    type: ItemType.Player,
-    item: {
-      player,
-      fromIndex: raidIndex,
-    },
-  }));
+  const [, dragRef] = useDrag(
+    () => ({
+      type: ItemType.Player,
+      item: {
+        player,
+        fromIndex: raidIndex,
+      },
+    }),
+    [player, raidIndex]
+  );
 
   return (
     <Box
@@ -78,11 +86,58 @@ export const PlayerItem: React.FC<Props> = ({
     >
       {player && (
         <>
-          <Typography>
-            {player.name || getSpecializationIDText(player.specialization.id)}
-          </Typography>
-          {isHovered && (
+          {isEditing ? (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+
+                onNameInputSubmit?.(
+                  {
+                    ...player,
+                    name: newName,
+                  },
+                  player
+                );
+
+                setIsEditing(false);
+              }}
+            >
+              <TextField
+                label={"Name"}
+                ref={inputRef}
+                type={"text"}
+                onChange={(e) => setNewName(e.target.value)}
+                value={newName}
+              />
+            </form>
+          ) : (
+            <Typography>
+              {player.name || getSpecializationIDText(player.specialization.id)}
+            </Typography>
+          )}
+          {(isHovered || isEditing) && (
             <Box position={"absolute"} right={0} top={0} bottom={0}>
+              <Tooltip
+                title={
+                  <FormattedMessage
+                    id={"edit-tooltip-text"}
+                    description={
+                      "Tooltip button text to edit player in raid list"
+                    }
+                    defaultMessage={"Edit"}
+                  />
+                }
+              >
+                <IconButton
+                  onClick={() => {
+                    setIsEditing(true);
+                    inputRef.current?.focus();
+                  }}
+                  size={"small"}
+                >
+                  <Edit />
+                </IconButton>
+              </Tooltip>
               <Tooltip
                 title={
                   <FormattedMessage

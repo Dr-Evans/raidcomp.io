@@ -19,6 +19,7 @@ export const PartyList: React.FC<Props> = ({
   partyIndex,
   onPlayerRemove,
   onPlayerAdd,
+  onPlayerEdit,
 }) => {
   return (
     <Card>
@@ -32,6 +33,7 @@ export const PartyList: React.FC<Props> = ({
               onDrop={(p, fromIndex) =>
                 onPlayerAdd(p, partyIndex * MAX_PARTY_SIZE + index, fromIndex)
               }
+              onNameInputSubmit={onPlayerEdit}
             />
           </Grid>
         ))}
