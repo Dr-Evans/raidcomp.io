@@ -2,7 +2,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import {
   getSpecializationIDText,
   getSpecIconURL,
-  ItemTypes,
+  ItemType,
   Specialization,
   SpecializationItem,
 } from "../../../../../../models";
@@ -19,14 +19,11 @@ export type Props = PublicProps;
 
 export const ClassSpecButton: React.FC<Props> = ({ spec, onClick }) => {
   const intl = useIntl();
-  const [{ isDragging }, dragRef] = useDrag(() => ({
-    type: ItemTypes.Specialization,
+  const [, dragRef] = useDrag<SpecializationItem>(() => ({
+    type: ItemType.Specialization,
     item: {
       specialization: spec,
-    } as SpecializationItem,
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
+    },
   }));
 
   return (

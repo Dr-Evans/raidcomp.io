@@ -32,12 +32,6 @@ export const RaidCompPage: React.FC<Props> = ({ expansionID }) => {
               specialization: newSpec,
             };
 
-            console.log([
-              ...players.slice(0, indexToInsert),
-              newPlayer,
-              ...players.slice(indexToInsert + 1),
-            ]);
-
             // Replace spot
             setPlayers([
               ...players.slice(0, indexToInsert),
@@ -61,13 +55,38 @@ export const RaidCompPage: React.FC<Props> = ({ expansionID }) => {
               ...players.slice(indexToRemove + 1),
             ]);
           }}
-          onPlayerAdd={(newPlayer, index) => {
-            setPlayers([
-              ...players.slice(0, index),
-              newPlayer,
-              ...players.slice(index + 1),
-            ]);
+          onPlayerAdd={(newPlayer, toIndex, fromIndex) => {
+            let newPlayers: (Player | undefined)[];
+            const playerToSwap = players[toIndex];
+
+            if (fromIndex === undefined) {
+              // Just place the new player in the toIndex
+              newPlayers = [
+                ...players.slice(0, toIndex),
+                newPlayer,
+                ...players.slice(toIndex + 1),
+              ];
+            } else if (fromIndex < toIndex) {
+              newPlayers = [
+                ...players.slice(0, fromIndex),
+                playerToSwap,
+                ...players.slice(fromIndex + 1, toIndex),
+                newPlayer,
+                ...players.slice(toIndex + 1),
+              ];
+            } else {
+              newPlayers = [
+                ...players.slice(0, toIndex),
+                newPlayer,
+                ...players.slice(toIndex + 1, fromIndex),
+                playerToSwap,
+                ...players.slice(fromIndex + 1),
+              ];
+            }
+
+            setPlayers(newPlayers);
           }}
+          onPlayerEdit={() => {}}
         />
       </Box>
     </Box>

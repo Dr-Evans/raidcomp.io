@@ -7,9 +7,9 @@ import { FormattedMessage } from "react-intl";
 
 interface PublicProps {
   players: (Player | undefined)[];
-  onPlayerRemove?: (player: Player) => void;
-  onPlayerAdd?: (newPlayer: Player, index: number) => void;
-  onPlayerEdit?: (newPlayer: Player, oldPlayer: Player) => void;
+  onPlayerRemove: (player: Player) => void;
+  onPlayerAdd: (newPlayer: Player, toIndex: number, fromIndex?: number) => void;
+  onPlayerEdit: (newPlayer: Player, oldPlayer: Player) => void;
 }
 
 export type Props = PublicProps;
@@ -46,10 +46,12 @@ export const RaidList: React.FC<Props> = ({
             <Box pt={1}>
               <PartyList
                 party={party}
+                partyIndex={partyIndex}
                 onPlayerRemove={onPlayerRemove}
-                onPlayerAdd={(p, playerIndex) =>
-                  onPlayerAdd?.(p, partyIndex * MAX_PARTY_SIZE + playerIndex)
+                onPlayerAdd={(p, toIndex, fromIndex) =>
+                  onPlayerAdd(p, toIndex, fromIndex)
                 }
+                onPlayerEdit={() => {}}
               />
             </Box>
           </Grid>
