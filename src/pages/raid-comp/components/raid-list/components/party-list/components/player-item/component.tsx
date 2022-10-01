@@ -31,7 +31,6 @@ export const PlayerItem: React.FC<Props> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const [newName, setNewName] = useState(player?.name);
   const [{ isOver }, dropRef] = useDrop(
     () => ({
@@ -104,7 +103,6 @@ export const PlayerItem: React.FC<Props> = ({
             >
               <TextField
                 label={"Name"}
-                ref={inputRef}
                 type={"text"}
                 onChange={(e) => setNewName(e.target.value)}
                 value={newName}
@@ -130,8 +128,7 @@ export const PlayerItem: React.FC<Props> = ({
               >
                 <IconButton
                   onClick={() => {
-                    setIsEditing(true);
-                    inputRef.current?.focus();
+                    setIsEditing(!isEditing);
                   }}
                   size={"small"}
                 >
