@@ -14,28 +14,29 @@ interface PublicProps {
 export type Props = PublicProps;
 
 export const RaidCompPage: React.FC<Props> = ({ expansionID }) => {
-  const [players, setPlayers] = useState<(Player | undefined)[]>([]);
+  const [players, setPlayers] = useState<(Player | undefined)[]>(
+    new Array(MAX_RAID_SIZE).fill(undefined)
+  );
 
   return (
     <Box p={2}>
       <SpecSelection
         expansionID={expansionID}
         onSpecClick={(newSpec) => {
-          if (players.length < MAX_RAID_SIZE) {
+          // Find the first empty spot
+          let indexToInsert = players.findIndex((player) => !player);
+
+          if (indexToInsert >= 0) {
             const newPlayer: Player = {
               id: uuidv4(),
               specialization: newSpec,
             };
 
-            // Find first undefined
-            let indexToInsert = players.findIndex(
-              (player) => player === undefined
-            );
-
-            // If none, append to end
-            if (indexToInsert < 0) {
-              indexToInsert = players.length;
-            }
+            console.log([
+              ...players.slice(0, indexToInsert),
+              newPlayer,
+              ...players.slice(indexToInsert + 1),
+            ]);
 
             // Replace spot
             setPlayers([
@@ -49,7 +50,7 @@ export const RaidCompPage: React.FC<Props> = ({ expansionID }) => {
       <Box pt={1}>
         <RaidList
           players={players}
-          onRemoveButtonClick={(playerToRemove) => {
+          onPlayerRemove={(playerToRemove) => {
             const indexToRemove = players.findIndex(
               (player) => player?.id === playerToRemove.id
             );
@@ -58,6 +59,13 @@ export const RaidCompPage: React.FC<Props> = ({ expansionID }) => {
               ...players.slice(0, indexToRemove),
               undefined,
               ...players.slice(indexToRemove + 1),
+            ]);
+          }}
+          onPlayerAdd={(newPlayer, index) => {
+            setPlayers([
+              ...players.slice(0, index),
+              newPlayer,
+              ...players.slice(index + 1),
             ]);
           }}
         />

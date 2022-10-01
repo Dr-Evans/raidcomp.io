@@ -18,7 +18,7 @@ export const SpecSelection: React.FC<Props> = ({
   return (
     <Grid container spacing={2} alignItems={"center"}>
       {WrathDB.getAllClasses().map((wowClass) => (
-        <Grid item xs={3} key={wowClass.id}>
+        <Grid item xs={2} key={wowClass.id}>
           <ClassBox wowClass={wowClass} onSpecClick={onSpecClick} />
         </Grid>
       ))}

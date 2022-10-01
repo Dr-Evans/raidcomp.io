@@ -2,32 +2,33 @@ import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { PartyList } from "./components/party-list";
 import { Player } from "../../../../models/player";
-import { MAX_PARTY_SIZE, MAX_RAID_SIZE } from "../../../../models/contants";
+import { MAX_PARTY_SIZE } from "../../../../models/contants";
 import { FormattedMessage } from "react-intl";
 
 interface PublicProps {
   players: (Player | undefined)[];
-  onRemoveButtonClick?: (player: Player) => void;
+  onPlayerRemove?: (player: Player) => void;
+  onPlayerAdd?: (newPlayer: Player, index: number) => void;
+  onPlayerEdit?: (newPlayer: Player, oldPlayer: Player) => void;
 }
 
 export type Props = PublicProps;
 
-export const RaidList: React.FC<Props> = ({ players, onRemoveButtonClick }) => {
-  const raid = [
-    ...players,
-    ...new Array(MAX_RAID_SIZE - players.length).fill(undefined),
-  ];
-
+export const RaidList: React.FC<Props> = ({
+  players,
+  onPlayerRemove,
+  onPlayerAdd,
+}) => {
   let parties: (Player | undefined)[][] = [];
-  for (let i = 0; i < raid.length; i = i + MAX_PARTY_SIZE) {
-    parties = [...parties, [...raid.slice(i, i + MAX_PARTY_SIZE)]];
+  for (let i = 0; i < players.length; i = i + MAX_PARTY_SIZE) {
+    parties = [...parties, [...players.slice(i, i + MAX_PARTY_SIZE)]];
   }
 
   return (
     <Grid container spacing={2}>
-      {parties.map((party, index) => {
+      {parties.map((party, partyIndex) => {
         // I hope this works this is pretty jank
-        const partyKey = `${index}-${party.reduce(
+        const partyKey = `${partyIndex}-${party.reduce(
           (prevValue, player) => prevValue + player?.id,
           ""
         )}`;
@@ -39,13 +40,16 @@ export const RaidList: React.FC<Props> = ({ players, onRemoveButtonClick }) => {
                 id={"group-title-text"}
                 description={"Title shown above each party"}
                 defaultMessage={"Group {numOfGroup}"}
-                values={{ numOfGroup: index + 1 }}
+                values={{ numOfGroup: partyIndex + 1 }}
               />
             </Typography>
             <Box pt={1}>
               <PartyList
                 party={party}
-                onRemoveButtonClick={onRemoveButtonClick}
+                onPlayerRemove={onPlayerRemove}
+                onPlayerAdd={(p, playerIndex) =>
+                  onPlayerAdd?.(p, partyIndex * MAX_PARTY_SIZE + playerIndex)
+                }
               />
             </Box>
           </Grid>

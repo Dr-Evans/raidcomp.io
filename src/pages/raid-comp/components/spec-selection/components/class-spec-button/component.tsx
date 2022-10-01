@@ -2,10 +2,13 @@ import { IconButton, Tooltip } from "@mui/material";
 import {
   getSpecializationIDText,
   getSpecIconURL,
+  ItemTypes,
   Specialization,
+  SpecializationItem,
 } from "../../../../../../models";
 import React from "react";
 import { useIntl } from "react-intl";
+import { useDrag } from "react-dnd";
 
 interface PublicProps {
   spec: Specialization;
@@ -16,9 +19,22 @@ export type Props = PublicProps;
 
 export const ClassSpecButton: React.FC<Props> = ({ spec, onClick }) => {
   const intl = useIntl();
+  const [{ isDragging }, dragRef] = useDrag(() => ({
+    type: ItemTypes.Specialization,
+    item: {
+      specialization: spec,
+    } as SpecializationItem,
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
 
   return (
-    <Tooltip title={getSpecializationIDText(spec.id)}>
+    <Tooltip
+      title={getSpecializationIDText(spec.id)}
+      placement={"top"}
+      ref={dragRef}
+    >
       <IconButton onClick={() => onClick?.(spec)}>
         <img
           alt={intl
