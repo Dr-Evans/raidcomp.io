@@ -46,20 +46,22 @@ export const RaidCompPage: React.FC<Props> = ({ expansionID }) => {
           }
         }}
       />
-      <RaidList
-        players={players}
-        onRemoveButtonClick={(playerToRemove) => {
-          const indexToRemove = players.findIndex(
-            (player) => player?.id === playerToRemove.id
-          );
+      <Box pt={1}>
+        <RaidList
+          players={players}
+          onRemoveButtonClick={(playerToRemove) => {
+            const indexToRemove = players.findIndex(
+              (player) => player?.id === playerToRemove.id
+            );
 
-          setPlayers([
-            ...players.slice(0, indexToRemove),
-            undefined,
-            ...players.slice(indexToRemove + 1),
-          ]);
-        }}
-      />
+            setPlayers([
+              ...players.slice(0, indexToRemove),
+              undefined,
+              ...players.slice(indexToRemove + 1),
+            ]);
+          }}
+        />
+      </Box>
     </Box>
   );
 };

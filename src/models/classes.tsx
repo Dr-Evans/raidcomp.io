@@ -1,4 +1,4 @@
-import { Buff } from "./buffs";
+import { Specialization } from "./specializations";
 
 export enum ClassID {
   DeathKnight = "death-knight",
@@ -24,17 +24,6 @@ export interface Class {
   specs: Specialization[];
 }
 
-export enum SpecializationRole {
-  Tank,
-  MeleeDPS,
-  RangedDPS,
-  MagicDPS,
-  Healer,
-}
-
-export interface Specialization {
-  id: string;
-  role: SpecializationRole;
-  classID: ClassID;
-  buffs: Buff[];
-}
+export const getClassIconURL = (classID: ClassID) => {
+  return `/classes/${classID}/icon.png`;
+};

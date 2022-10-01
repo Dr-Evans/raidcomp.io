@@ -1,4 +1,4 @@
-import { Specialization } from "./classes";
+import { Specialization } from "./specializations";
 
 export interface Player {
   id: string;

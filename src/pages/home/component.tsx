@@ -13,20 +13,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onExpansionHover }) => {
         <ButtonGroup orientation="vertical">
           <Button
             component={RouterLink}
-            to={`/${ExpansionID.Classic}`}
-            onMouseEnter={() => onExpansionHover(ExpansionID.Classic)}
-          >
-            Classic
-          </Button>
-          <Button
-            component={RouterLink}
-            to={`/${ExpansionID.BurningCrusade}`}
-            onMouseEnter={() => onExpansionHover(ExpansionID.BurningCrusade)}
-          >
-            Burning Crusade
-          </Button>
-          <Button
-            component={RouterLink}
             to={`/${ExpansionID.WrathOfTheLichKing}`}
             onMouseEnter={() =>
               onExpansionHover(ExpansionID.WrathOfTheLichKing)

@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { PartyList } from "./components/party-list";
 import { Player } from "../../../../models/player";
 import { MAX_PARTY_SIZE, MAX_RAID_SIZE } from "../../../../models/contants";
@@ -42,10 +42,12 @@ export const RaidList: React.FC<Props> = ({ players, onRemoveButtonClick }) => {
                 values={{ numOfGroup: index + 1 }}
               />
             </Typography>
-            <PartyList
-              party={party}
-              onRemoveButtonClick={onRemoveButtonClick}
-            />
+            <Box pt={1}>
+              <PartyList
+                party={party}
+                onRemoveButtonClick={onRemoveButtonClick}
+              />
+            </Box>
           </Grid>
         );
       })}

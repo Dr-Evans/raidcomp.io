@@ -4,6 +4,7 @@ import {
   Class,
   ClassID,
   ExpansionID,
+  SpecializationID,
   SpecializationRole,
 } from "../../index";
 import { ExpansionDB } from "../db";
@@ -15,8 +16,9 @@ const classes: Class[] = [
     hexColor: "#C41E3A",
     specs: [
       {
-        id: "death-knight-blood",
+        id: SpecializationID.DeathKnightBlood,
         classID: ClassID.DeathKnight,
+        specName: "blood",
         role: SpecializationRole.Tank,
         buffs: [
           {
@@ -37,14 +39,16 @@ const classes: Class[] = [
         ],
       },
       {
-        id: "death-knight-frost",
+        id: SpecializationID.DeathKnightFrost,
         classID: ClassID.DeathKnight,
+        specName: "frost",
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "death-knight-unholy",
+        id: SpecializationID.DeathKnightUnholy,
         classID: ClassID.DeathKnight,
+        specName: "unholy",
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
@@ -55,28 +59,30 @@ const classes: Class[] = [
     hexColor: "#FF7C0A",
     specs: [
       {
-        id: "druid-balance",
+        id: SpecializationID.DruidBalance,
         classID: ClassID.Druid,
+        specName: "balance",
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "druid-feral-bear",
+        id: SpecializationID.DruidFeralBear,
         classID: ClassID.Druid,
+        specName: "feral-bear",
         role: SpecializationRole.Tank,
         buffs: [],
       },
       {
-        id: "druid-feral-cat",
+        id: SpecializationID.DruidFeralCat,
         classID: ClassID.Druid,
-
+        specName: "feral-cat",
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "druid-restoration",
+        id: SpecializationID.DruidRestoration,
         classID: ClassID.Druid,
-
+        specName: "restoration",
         role: SpecializationRole.Healer,
         buffs: [],
       },
@@ -87,23 +93,23 @@ const classes: Class[] = [
     hexColor: "#AAD372",
     specs: [
       {
-        id: "hunter-beast-mastery",
+        id: SpecializationID.HunterBeastMastery,
         classID: ClassID.Hunter,
-
+        specName: "beast-mastery",
         role: SpecializationRole.RangedDPS,
         buffs: [],
       },
       {
-        id: "hunter-marksmanship",
+        id: SpecializationID.HunterMarksmanship,
         classID: ClassID.Hunter,
-
+        specName: "marksmanship",
         role: SpecializationRole.RangedDPS,
         buffs: [],
       },
       {
-        id: "hunter-survival",
+        id: SpecializationID.HunterSurvival,
         classID: ClassID.Hunter,
-
+        specName: "survival",
         role: SpecializationRole.RangedDPS,
         buffs: [],
       },
@@ -114,23 +120,23 @@ const classes: Class[] = [
     hexColor: "#3FC7EB",
     specs: [
       {
-        id: "mage-arcane",
+        id: SpecializationID.MageArcane,
         classID: ClassID.Mage,
-
+        specName: "arcane",
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "mage-fire",
-
+        id: SpecializationID.MageFire,
         classID: ClassID.Mage,
+        specName: "fire",
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "mage-frost",
-
+        id: SpecializationID.MageFrost,
         classID: ClassID.Mage,
+        specName: "frost",
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
@@ -141,22 +147,23 @@ const classes: Class[] = [
     hexColor: "#F48CBA",
     specs: [
       {
-        id: "paladin-holy",
+        id: SpecializationID.PaladinHoly,
         classID: ClassID.Paladin,
+        specName: "holy",
         role: SpecializationRole.Healer,
         buffs: [],
       },
       {
-        id: "paladin-protection",
+        id: SpecializationID.PaladinProtection,
         classID: ClassID.Paladin,
-
+        specName: "protection",
         role: SpecializationRole.Tank,
         buffs: [],
       },
       {
-        id: "paladin-retribution",
+        id: SpecializationID.PaladinRetribution,
         classID: ClassID.Paladin,
-
+        specName: "retribution",
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
@@ -167,22 +174,23 @@ const classes: Class[] = [
     hexColor: "#FFFFFF",
     specs: [
       {
-        id: "priest-discipline",
+        id: SpecializationID.PriestDiscipline,
         classID: ClassID.Priest,
+        specName: "discipline",
         role: SpecializationRole.Healer,
         buffs: [],
       },
       {
-        id: "priest-holy",
+        id: SpecializationID.PriestHoly,
         classID: ClassID.Priest,
-
+        specName: "holy",
         role: SpecializationRole.Healer,
         buffs: [],
       },
       {
-        id: "priest-shadow",
+        id: SpecializationID.PriestShadow,
         classID: ClassID.Priest,
-
+        specName: "shadow",
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
@@ -193,21 +201,23 @@ const classes: Class[] = [
     hexColor: "#FFF468",
     specs: [
       {
-        id: "rogue-assassination",
+        id: SpecializationID.RogueAssassination,
         classID: ClassID.Rogue,
+        specName: "assassination",
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "rogue-combat",
+        id: SpecializationID.RogueCombat,
         classID: ClassID.Rogue,
+        specName: "combat",
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "rogue-subtlety",
+        id: SpecializationID.RogueSubtlety,
         classID: ClassID.Rogue,
-
+        specName: "subtlety",
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
@@ -218,23 +228,23 @@ const classes: Class[] = [
     hexColor: "#0070DD",
     specs: [
       {
-        id: "shaman-elemental",
+        id: SpecializationID.ShamanElemental,
         classID: ClassID.Shaman,
-
+        specName: "elemental",
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "shaman-enhancement",
+        id: SpecializationID.ShamanEnhancement,
         classID: ClassID.Shaman,
-
+        specName: "enhancement",
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "shaman-restoration",
+        id: SpecializationID.ShamanRestoration,
         classID: ClassID.Shaman,
-
+        specName: "restoration",
         role: SpecializationRole.Healer,
         buffs: [],
       },
@@ -245,23 +255,23 @@ const classes: Class[] = [
     hexColor: "#8788EE",
     specs: [
       {
-        id: "warlock-affliction",
+        id: SpecializationID.WarlockAffliction,
         classID: ClassID.Warlock,
-
+        specName: "affliction",
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "warlock-demonology",
+        id: SpecializationID.WarlockDemonology,
         classID: ClassID.Warlock,
-
+        specName: "demonology",
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
       {
-        id: "warlock-destruction",
+        id: SpecializationID.WarlockDestruction,
         classID: ClassID.Warlock,
-
+        specName: "destruction",
         role: SpecializationRole.MagicDPS,
         buffs: [],
       },
@@ -272,22 +282,23 @@ const classes: Class[] = [
     hexColor: "#C69B6D",
     specs: [
       {
-        id: "warrior-arms",
+        id: SpecializationID.WarriorArms,
         classID: ClassID.Warrior,
+        specName: "arms",
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "warrior-fury",
+        id: SpecializationID.WarriorFury,
         classID: ClassID.Warrior,
-
+        specName: "fury",
         role: SpecializationRole.MeleeDPS,
         buffs: [],
       },
       {
-        id: "warrior-protection",
+        id: SpecializationID.WarriorProtection,
         classID: ClassID.Warrior,
-
+        specName: "protection",
         role: SpecializationRole.Tank,
         buffs: [],
       },

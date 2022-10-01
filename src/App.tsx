@@ -9,21 +9,19 @@ import { HomePage } from "./pages/home";
 import { RaidCompPage } from "./pages/raid-comp";
 import { ExpansionID, getExpansionID } from "./models";
 import { ThemeProvider } from "@mui/material";
-import { getExpansionDB } from "./models/db";
 import { IntlProvider } from "react-intl";
+import { WrathDB } from "./models/db/wrath";
 
 const supportedExpansions = {
-  [ExpansionID.Classic]: true,
-  [ExpansionID.BurningCrusade]: true,
   [ExpansionID.WrathOfTheLichKing]: true,
 };
 
 function App() {
-  const [expansionID, setExpansionID] = useState(ExpansionID.Classic);
+  const [, setExpansionID] = useState(ExpansionID.Classic);
 
   return (
     <IntlProvider locale="en" defaultLocale="en">
-      <ThemeProvider theme={getExpansionDB(expansionID).theme}>
+      <ThemeProvider theme={WrathDB.theme}>
         <Router>
           <Switch>
             <Route exact path={"/"}>

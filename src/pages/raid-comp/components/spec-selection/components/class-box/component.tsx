@@ -1,6 +1,6 @@
 import { Class, Specialization } from "../../../../../../models";
 import React from "react";
-import { Card, CardMedia, Grid } from "@mui/material";
+import { Card, Grid } from "@mui/material";
 import { ClassSpecButton } from "../class-spec-button";
 
 export interface PublicProps {
@@ -13,12 +13,7 @@ export type Props = PublicProps;
 export const ClassBox: React.FC<Props> = ({ wowClass, onSpecClick }) => {
   return (
     <Card>
-      <CardMedia
-        component="img"
-        height={50}
-        image={`/classes/${wowClass.id}/banner.webp`}
-      />
-      <Grid container alignItems="center">
+      <Grid container alignItems="center" bgcolor={wowClass.hexColor}>
         {wowClass.specs.map((spec) => (
           <Grid
             container
