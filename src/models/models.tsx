@@ -363,7 +363,6 @@ export enum SpecializationRole {
   Tank,
   MeleeDPS,
   RangedDPS,
-  MagicDPS,
   Healer,
 }
 
@@ -428,7 +427,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
         return getClass(expansionID, ClassID.Druid);
       },
       name: "balance",
-      role: SpecializationRole.MagicDPS,
+      role: SpecializationRole.RangedDPS,
       buffs: [],
     },
     [SpecializationID.DruidFeralBear]: {
@@ -491,7 +490,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
         return getClass(expansionID, ClassID.Mage);
       },
       name: "arcane",
-      role: SpecializationRole.MagicDPS,
+      role: SpecializationRole.RangedDPS,
       buffs: [],
     },
     [SpecializationID.MageFire]: {
@@ -500,7 +499,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
         return getClass(expansionID, ClassID.Mage);
       },
       name: "fire",
-      role: SpecializationRole.MagicDPS,
+      role: SpecializationRole.RangedDPS,
       buffs: [],
     },
     [SpecializationID.MageFrost]: {
@@ -509,7 +508,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
         return getClass(expansionID, ClassID.Mage);
       },
       name: "frost",
-      role: SpecializationRole.MagicDPS,
+      role: SpecializationRole.RangedDPS,
       buffs: [],
     },
     [SpecializationID.MonkBrewmaster]: {
@@ -590,7 +589,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
         return getClass(expansionID, ClassID.Priest);
       },
       name: "shadow",
-      role: SpecializationRole.MagicDPS,
+      role: SpecializationRole.RangedDPS,
       buffs: [],
     },
     [SpecializationID.RogueAssassination]: {
@@ -635,7 +634,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
         return getClass(expansionID, ClassID.Shaman);
       },
       name: "elemental",
-      role: SpecializationRole.MagicDPS,
+      role: SpecializationRole.RangedDPS,
       buffs: [],
     },
     [SpecializationID.ShamanEnhancement]: {
@@ -662,7 +661,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
         return getClass(expansionID, ClassID.Warlock);
       },
       name: "affliction",
-      role: SpecializationRole.MagicDPS,
+      role: SpecializationRole.RangedDPS,
       buffs: [],
     },
     [SpecializationID.WarlockDemonology]: {
@@ -671,7 +670,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
         return getClass(expansionID, ClassID.Warlock);
       },
       name: "demonology",
-      role: SpecializationRole.MagicDPS,
+      role: SpecializationRole.RangedDPS,
       buffs: [],
     },
     [SpecializationID.WarlockDestruction]: {
@@ -680,7 +679,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
         return getClass(expansionID, ClassID.Warlock);
       },
       name: "destruction",
-      role: SpecializationRole.MagicDPS,
+      role: SpecializationRole.RangedDPS,
       buffs: [],
     },
     [SpecializationID.WarriorArms]: {
