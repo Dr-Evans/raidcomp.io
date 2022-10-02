@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { Expansion, Player, MAX_RAID_SIZE } from "../../models";
+import {
+  Expansion,
+  Player,
+  MAX_RAID_SIZE,
+  ItemType,
+  PlayerItem,
+} from "../../models";
 import { SpecSelection } from "./components/spec-selection";
 import { Box } from "@mui/material";
 import { RaidList } from "./components/raid-list";
 import { v4 as uuidv4 } from "uuid";
+import { useDrop } from "react-dnd";
 
 interface PublicProps {
   expansion: Expansion;
@@ -16,8 +23,25 @@ export const RaidCompPage: React.FC<Props> = ({ expansion }) => {
     new Array(MAX_RAID_SIZE).fill(undefined)
   );
 
+  const [, dropRef] = useDrop(
+    () => ({
+      accept: ItemType.Player,
+      drop: (item: PlayerItem) => {
+        setPlayers([
+          ...players.slice(0, item.fromIndex),
+          undefined,
+          ...players.slice(item.fromIndex + 1),
+        ]);
+      },
+      canDrop: (item, monitor) => {
+        return monitor.isOver({ shallow: true });
+      },
+    }),
+    []
+  );
+
   return (
-    <Box p={2}>
+    <Box p={2} ref={dropRef}>
       <SpecSelection
         expansion={expansion}
         onSpecClick={(newSpec) => {

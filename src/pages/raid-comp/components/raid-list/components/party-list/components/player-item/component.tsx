@@ -64,6 +64,9 @@ export const PlayerItem: React.FC<Props> = ({
         player,
         fromIndex: raidIndex,
       },
+      canDrag: () => {
+        return !!player;
+      },
     }),
     [player, raidIndex]
   );
