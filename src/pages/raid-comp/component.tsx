@@ -9,7 +9,7 @@ import {
 import { SpecSelection } from "./components/spec-selection";
 import { Box, Grid } from "@mui/material";
 import { RaidList } from "./components/raid-list";
-import { BuffList } from "./components/buff-list";
+import { DataList } from "./components/data-list";
 import { v4 as uuidv4 } from "uuid";
 import { useDrop } from "react-dnd";
 
@@ -125,7 +125,7 @@ export const RaidCompPage: React.FC<Props> = ({ expansion }) => {
         </Box>
       </Grid>
       <Grid xs={4} item>
-        <BuffList players={players} />
+        <DataList players={players} />
       </Grid>
     </Grid>
   );
