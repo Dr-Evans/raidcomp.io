@@ -1,6 +1,6 @@
-import { Player } from "../../../../../../../../models/player";
+import { Player } from "../../../../../../../../models/players";
 import { Box, IconButton, TextField, Tooltip, Typography } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Clear, Edit } from "@mui/icons-material";
 import { FormattedMessage } from "react-intl";
 import {

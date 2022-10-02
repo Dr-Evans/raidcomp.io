@@ -1,5 +1,5 @@
-import { Specialization } from "./specializations";
-import { Player } from "./player";
+import { Player } from "./players";
+import { Specialization } from "./models";
 
 export enum ItemType {
   Specialization = "specialization",

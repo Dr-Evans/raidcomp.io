@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Grid } from "@mui/material";
-import { Player } from "../../../../../../models/player";
-import { MAX_PARTY_SIZE } from "../../../../../../models/contants";
+import { Player } from "../../../../../../models/players";
+import { MAX_PARTY_SIZE } from "../../../../../../models/constants";
 import { PlayerItem } from "./components/player-item";
 
 interface PublicProps {

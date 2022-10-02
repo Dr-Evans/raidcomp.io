@@ -1,19 +1,17 @@
 import React, { useState } from "react";
-import { ExpansionID } from "../../models";
+import { Expansion, Player, MAX_RAID_SIZE } from "../../models";
 import { SpecSelection } from "./components/spec-selection";
 import { Box } from "@mui/material";
 import { RaidList } from "./components/raid-list";
-import { Player } from "../../models/player";
 import { v4 as uuidv4 } from "uuid";
-import { MAX_RAID_SIZE } from "../../models/contants";
 
 interface PublicProps {
-  expansionID: ExpansionID;
+  expansion: Expansion;
 }
 
 export type Props = PublicProps;
 
-export const RaidCompPage: React.FC<Props> = ({ expansionID }) => {
+export const RaidCompPage: React.FC<Props> = ({ expansion }) => {
   const [players, setPlayers] = useState<(Player | undefined)[]>(
     new Array(MAX_RAID_SIZE).fill(undefined)
   );
@@ -21,7 +19,7 @@ export const RaidCompPage: React.FC<Props> = ({ expansionID }) => {
   return (
     <Box p={2}>
       <SpecSelection
-        expansionID={expansionID}
+        expansion={expansion}
         onSpecClick={(newSpec) => {
           // Find the first empty spot
           let indexToInsert = players.findIndex((player) => !player);

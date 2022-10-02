@@ -1,23 +1,19 @@
-import { ExpansionID, Specialization } from "../../../../models";
+import { Expansion, ExpansionID, Specialization } from "../../../../models";
 import React from "react";
 import { Grid } from "@mui/material";
 import { ClassBox } from "./components/class-box";
-import { WrathDB } from "../../../../models/db/wrath";
 
 interface PublicProps {
-  expansionID: ExpansionID;
+  expansion: Expansion;
   onSpecClick?: (spec: Specialization) => void;
 }
 
 export type Props = PublicProps;
 
-export const SpecSelection: React.FC<Props> = ({
-  expansionID,
-  onSpecClick,
-}) => {
+export const SpecSelection: React.FC<Props> = ({ expansion, onSpecClick }) => {
   return (
     <Grid container spacing={2} alignItems={"center"}>
-      {WrathDB.getAllClasses().map((wowClass) => (
+      {expansion.classes.map((wowClass) => (
         <Grid item xs={2} key={wowClass.id}>
           <ClassBox wowClass={wowClass} onSpecClick={onSpecClick} />
         </Grid>

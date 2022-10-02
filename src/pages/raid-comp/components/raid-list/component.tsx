@@ -1,8 +1,8 @@
 import React from "react";
 import { Box, Grid, Typography } from "@mui/material";
 import { PartyList } from "./components/party-list";
-import { Player } from "../../../../models/player";
-import { MAX_PARTY_SIZE } from "../../../../models/contants";
+import { Player } from "../../../../models/players";
+import { MAX_PARTY_SIZE } from "../../../../models/constants";
 import { FormattedMessage } from "react-intl";
 
 interface PublicProps {
