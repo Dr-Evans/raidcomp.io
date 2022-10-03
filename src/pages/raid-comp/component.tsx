@@ -5,6 +5,7 @@ import {
   MAX_RAID_SIZE,
   Player,
   PlayerItem,
+  SpecializationRole,
 } from "../../models";
 import { SpecSelection } from "./components/spec-selection";
 import {
@@ -31,6 +32,9 @@ export type Props = PublicProps;
 export const RaidCompPage: React.FC<Props> = ({ expansion }) => {
   const [showClearSnackbar, setShowClearSnackbar] = useState(false);
   const [showCopySnackbar, setShowCopySnackbar] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<
+    SpecializationRole | undefined
+  >();
 
   const [players, setPlayers] = useState<(Player | undefined)[]>(
     new Array(MAX_RAID_SIZE).fill(undefined)
@@ -83,6 +87,7 @@ export const RaidCompPage: React.FC<Props> = ({ expansion }) => {
         <Box pt={1}>
           <RaidList
             players={players}
+            role={selectedRole}
             onPlayerRemove={(playerToRemove) => {
               const indexToRemove = players.findIndex(
                 (player) => player?.id === playerToRemove.id
@@ -170,7 +175,15 @@ export const RaidCompPage: React.FC<Props> = ({ expansion }) => {
           </ButtonGroup>
         </Grid>
         <Grid item xs>
-          <DataList players={players} />
+          <DataList
+            players={players}
+            onRoleSelect={(role) => {
+              setSelectedRole(role);
+            }}
+            onRoleClear={() => {
+              setSelectedRole(undefined);
+            }}
+          />
         </Grid>
       </Grid>
       <Snackbar

@@ -3,9 +3,11 @@ import { Card, Grid } from "@mui/material";
 import { Player } from "../../../../../../models/players";
 import { MAX_PARTY_SIZE } from "../../../../../../models/constants";
 import { PlayerItem } from "./components/player-item";
+import { SpecializationRole } from "../../../../../../models";
 
 interface PublicProps {
   party: (Player | undefined)[];
+  role?: SpecializationRole;
   partyIndex: number;
   onPlayerRemove: (player: Player) => void;
   onPlayerAdd: (newPlayer: Player, toIndex: number, fromIndex?: number) => void;
@@ -16,6 +18,7 @@ export type Props = PublicProps;
 
 export const PartyList: React.FC<Props> = ({
   party,
+  role,
   partyIndex,
   onPlayerRemove,
   onPlayerAdd,
@@ -28,6 +31,7 @@ export const PartyList: React.FC<Props> = ({
           <Grid item key={player ? player.id : index}>
             <PlayerItem
               player={player}
+              selected={player ? player.specialization.role === role : false}
               raidIndex={partyIndex * MAX_PARTY_SIZE + index}
               onRemoveButtonClick={onPlayerRemove}
               onDrop={(p, fromIndex) =>

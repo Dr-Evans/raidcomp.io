@@ -5,11 +5,17 @@ import { FormattedMessage } from "react-intl";
 
 interface PublicProps {
   players: (Player | undefined)[];
+  onRoleHover: (role: SpecializationRole) => void;
+  onRoleClear: () => void;
 }
 
 export type Props = PublicProps;
 
-export const RoleList: React.FC<Props> = ({ players }) => {
+export const RoleList: React.FC<Props> = ({
+  players,
+  onRoleHover,
+  onRoleClear,
+}) => {
   let numOfTanks = 0;
   let numOfMelee = 0;
   let numOfRanged = 0;
@@ -43,7 +49,10 @@ export const RoleList: React.FC<Props> = ({ players }) => {
       </Typography>
       <Grid container>
         <Grid item xs>
-          <Typography>
+          <Typography
+            onMouseEnter={() => onRoleHover(SpecializationRole.Tank)}
+            onMouseOut={onRoleClear}
+          >
             <FormattedMessage
               id={"role-list-tanks"}
               defaultMessage={"{num} Tanks"}
@@ -52,7 +61,10 @@ export const RoleList: React.FC<Props> = ({ players }) => {
           </Typography>
         </Grid>
         <Grid item xs>
-          <Typography>
+          <Typography
+            onMouseEnter={() => onRoleHover(SpecializationRole.MeleeDPS)}
+            onMouseOut={onRoleClear}
+          >
             <FormattedMessage
               id={"role-list-melee"}
               defaultMessage={"{num} Melee"}
@@ -61,7 +73,10 @@ export const RoleList: React.FC<Props> = ({ players }) => {
           </Typography>
         </Grid>
         <Grid item xs>
-          <Typography>
+          <Typography
+            onMouseEnter={() => onRoleHover(SpecializationRole.RangedDPS)}
+            onMouseOut={onRoleClear}
+          >
             <FormattedMessage
               id={"role-list-ranged"}
               defaultMessage={"{num} Ranged"}
@@ -70,7 +85,10 @@ export const RoleList: React.FC<Props> = ({ players }) => {
           </Typography>
         </Grid>
         <Grid item xs>
-          <Typography>
+          <Typography
+            onMouseEnter={() => onRoleHover(SpecializationRole.Healer)}
+            onMouseOut={onRoleClear}
+          >
             <FormattedMessage
               id={"role-list-healers"}
               defaultMessage={"{num} Healers"}

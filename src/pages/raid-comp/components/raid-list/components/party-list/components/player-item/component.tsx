@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 interface PublicProps {
   player?: Player;
   raidIndex: number;
+  selected?: boolean;
   onRemoveButtonClick?: (player: Player) => void;
   onDrop?: (player: Player, fromIndex?: number) => void;
   onNameInputSubmit?: (newPlayer: Player, oldPlayer: Player) => void;
@@ -25,6 +26,7 @@ export type Props = PublicProps;
 export const PlayerItem: React.FC<Props> = ({
   player,
   raidIndex,
+  selected = false,
   onRemoveButtonClick,
   onDrop,
   onNameInputSubmit,
@@ -84,7 +86,7 @@ export const PlayerItem: React.FC<Props> = ({
         dragRef(el);
         dropRef(el);
       }}
-      bgcolor={isOver ? "darkslategray" : ""}
+      bgcolor={isOver ? "darkslategray" : selected ? "aqua" : ""}
     >
       {player && (
         <>
