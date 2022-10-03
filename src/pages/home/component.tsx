@@ -1,6 +1,8 @@
 import { Button, ButtonGroup, Grid } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import { ExpansionID } from "../../models";
+import React from "react";
+import { FormattedMessage } from "react-intl";
 
 export interface HomePageProps {
   onExpansionHover: (selectedExpansion: ExpansionID) => void;
@@ -18,7 +20,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onExpansionHover }) => {
               onExpansionHover(ExpansionID.WrathOfTheLichKing)
             }
           >
-            Wrath of the Lich King
+            <FormattedMessage
+              id={"home-page-wrath-title"}
+              defaultMessage={"Wrath of the Lich King"}
+            />
           </Button>
         </ButtonGroup>
       </Grid>
