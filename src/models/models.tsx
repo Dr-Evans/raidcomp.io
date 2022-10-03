@@ -145,6 +145,7 @@ export interface Class {
   id: ClassID;
   hexColor: string;
   specs: Specialization[];
+  abilities: Ability[];
 }
 
 export enum ClassID {
@@ -175,6 +176,9 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
         getSpec(expansionID, SpecializationID.DeathKnightUnholy),
       ];
     },
+    get abilities() {
+      return [getAbility(expansionID, "57623")];
+    },
   },
   [ClassID.DemonHunter]: {
     id: ClassID.DemonHunter,
@@ -185,6 +189,10 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
         getSpec(expansionID, SpecializationID.DemonHunterVengeance),
       ];
     },
+    // TODO: One day...
+    get abilities() {
+      return [];
+    },
   },
   [ClassID.Druid]: {
     id: ClassID.Druid,
@@ -192,9 +200,16 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
     get specs() {
       return [
         getSpec(expansionID, SpecializationID.DruidBalance),
-        getSpec(expansionID, SpecializationID.DruidFeralBear),
-        getSpec(expansionID, SpecializationID.DruidFeralCat),
+        getSpec(expansionID, SpecializationID.DruidFeral),
         getSpec(expansionID, SpecializationID.DruidRestoration),
+      ];
+    },
+    get abilities() {
+      return [
+        getAbility(expansionID, "48470"),
+        getAbility(expansionID, "770"),
+        getAbility(expansionID, "29166"),
+        getAbility(expansionID, "48477"),
       ];
     },
   },
@@ -208,6 +223,7 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
         getSpec(expansionID, SpecializationID.HunterSurvival),
       ];
     },
+    abilities: [],
   },
   [ClassID.Mage]: {
     id: ClassID.Mage,
@@ -219,6 +235,7 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
         getSpec(expansionID, SpecializationID.MageFrost),
       ];
     },
+    abilities: [],
   },
   [ClassID.Monk]: {
     id: ClassID.Monk,
@@ -229,6 +246,10 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
         getSpec(expansionID, SpecializationID.MonkMistweaver),
         getSpec(expansionID, SpecializationID.MonkWindwalker),
       ];
+    },
+    // TODO: One day...
+    get abilities() {
+      return [];
     },
   },
   [ClassID.Paladin]: {
@@ -241,6 +262,7 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
         getSpec(expansionID, SpecializationID.PaladinRetribution),
       ];
     },
+    abilities: [],
   },
   [ClassID.Priest]: {
     id: ClassID.Priest,
@@ -252,6 +274,7 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
         getSpec(expansionID, SpecializationID.PriestShadow),
       ];
     },
+    abilities: [],
   },
   [ClassID.Rogue]: {
     id: ClassID.Rogue,
@@ -265,6 +288,7 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
         getSpec(expansionID, SpecializationID.RogueSubtlety),
       ];
     },
+    abilities: [],
   },
   [ClassID.Shaman]: {
     id: ClassID.Shaman,
@@ -276,6 +300,7 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
         getSpec(expansionID, SpecializationID.ShamanRestoration),
       ];
     },
+    abilities: [],
   },
   [ClassID.Warlock]: {
     id: ClassID.Warlock,
@@ -287,6 +312,7 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
         getSpec(expansionID, SpecializationID.WarlockDestruction),
       ];
     },
+    abilities: [],
   },
   [ClassID.Warrior]: {
     id: ClassID.Warrior,
@@ -298,6 +324,7 @@ const classDB: (expansionID: ExpansionID) => { [key: string]: Class } = (
         getSpec(expansionID, SpecializationID.WarriorProtection),
       ];
     },
+    abilities: [],
   },
 });
 
@@ -316,7 +343,7 @@ export interface Specialization {
   role: SpecializationRole;
   class: Class;
   name: string;
-  buffs: Buff[];
+  talents: Talent[];
 }
 
 export enum SpecializationID {
@@ -326,8 +353,7 @@ export enum SpecializationID {
   DemonHunterHavoc = "demon-hunter-havoc",
   DemonHunterVengeance = "demon-hunter-vengeance",
   DruidBalance = "druid-balance",
-  DruidFeralBear = "druid-feral-bear",
-  DruidFeralCat = "druid-feral-cat",
+  DruidFeral = "druid-feral",
   DruidRestoration = "druid-restoration",
   HunterBeastMastery = "hunter-beast-mastery",
   HunterMarksmanship = "hunter-marksmanship",
@@ -375,11 +401,10 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "blood",
       role: SpecializationRole.Tank,
-      get buffs() {
+      get talents() {
         return [
-          getBuff(expansionID, "53138"),
-          getBuff(expansionID, "55610"),
-          getBuff(expansionID, "57623"),
+          getTalent(expansionID, "53138"),
+          getTalent(expansionID, "55610"),
         ];
       },
     },
@@ -390,8 +415,8 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "frost",
       role: SpecializationRole.MeleeDPS,
-      get buffs() {
-        return [];
+      get talents() {
+        return [getTalent(expansionID, "55610")];
       },
     },
     [SpecializationID.DeathKnightUnholy]: {
@@ -401,7 +426,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "unholy",
       role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.DemonHunterHavoc]: {
       id: SpecializationID.DemonHunterHavoc,
@@ -410,7 +435,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "havoc",
       role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.DemonHunterVengeance]: {
       id: SpecializationID.DemonHunterVengeance,
@@ -419,7 +444,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "vengeance",
       role: SpecializationRole.Tank,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.DruidBalance]: {
       id: SpecializationID.DruidBalance,
@@ -428,25 +453,23 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "balance",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      abilities: [],
+      get talents() {
+        return [
+          getTalent(expansionID, "24858"),
+          getTalent(expansionID, "48396"),
+          getTalent(expansionID, "48511"),
+        ];
+      },
     },
-    [SpecializationID.DruidFeralBear]: {
-      id: SpecializationID.DruidFeralBear,
+    [SpecializationID.DruidFeral]: {
+      id: SpecializationID.DruidFeral,
       get class() {
         return getClass(expansionID, ClassID.Druid);
       },
-      name: "feral-bear",
+      name: "feral",
       role: SpecializationRole.Tank,
-      buffs: [],
-    },
-    [SpecializationID.DruidFeralCat]: {
-      id: SpecializationID.DruidFeralCat,
-      get class() {
-        return getClass(expansionID, ClassID.Druid);
-      },
-      name: "feral-cat",
-      role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.DruidRestoration]: {
       id: SpecializationID.DruidRestoration,
@@ -455,7 +478,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "restoration",
       role: SpecializationRole.Healer,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.HunterBeastMastery]: {
       id: SpecializationID.HunterBeastMastery,
@@ -464,7 +487,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "beast-mastery",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.HunterMarksmanship]: {
       id: SpecializationID.HunterMarksmanship,
@@ -473,7 +496,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "marksmanship",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.HunterSurvival]: {
       id: SpecializationID.HunterSurvival,
@@ -482,7 +505,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "survival",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.MageArcane]: {
       id: SpecializationID.MageArcane,
@@ -491,7 +514,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "arcane",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.MageFire]: {
       id: SpecializationID.MageFire,
@@ -500,7 +523,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "fire",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.MageFrost]: {
       id: SpecializationID.MageFrost,
@@ -509,7 +532,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "frost",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.MonkBrewmaster]: {
       id: SpecializationID.MonkBrewmaster,
@@ -518,7 +541,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "brewmaster",
       role: SpecializationRole.Tank,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.MonkMistweaver]: {
       id: SpecializationID.MonkMistweaver,
@@ -527,7 +550,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "mistweaver",
       role: SpecializationRole.Healer,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.MonkWindwalker]: {
       id: SpecializationID.MonkWindwalker,
@@ -536,7 +559,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "windwalker",
       role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.PaladinHoly]: {
       id: SpecializationID.PaladinHoly,
@@ -545,7 +568,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "holy",
       role: SpecializationRole.Healer,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.PaladinProtection]: {
       id: SpecializationID.PaladinProtection,
@@ -554,7 +577,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "protection",
       role: SpecializationRole.Tank,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.PaladinRetribution]: {
       id: SpecializationID.PaladinRetribution,
@@ -563,7 +586,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "retribution",
       role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.PriestDiscipline]: {
       id: SpecializationID.PriestDiscipline,
@@ -572,7 +595,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "discipline",
       role: SpecializationRole.Healer,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.PriestHoly]: {
       id: SpecializationID.PriestHoly,
@@ -581,7 +604,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "holy",
       role: SpecializationRole.Healer,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.PriestShadow]: {
       id: SpecializationID.PriestShadow,
@@ -590,7 +613,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "shadow",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.RogueAssassination]: {
       id: SpecializationID.RogueAssassination,
@@ -599,7 +622,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "assassination",
       role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.RogueCombat]: {
       id: SpecializationID.RogueCombat,
@@ -608,7 +631,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "combat",
       role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.RogueOutlaw]: {
       id: SpecializationID.RogueOutlaw,
@@ -617,7 +640,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "outlaw",
       role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.RogueSubtlety]: {
       id: SpecializationID.RogueSubtlety,
@@ -626,7 +649,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "subtlety",
       role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.ShamanElemental]: {
       id: SpecializationID.ShamanElemental,
@@ -635,7 +658,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "elemental",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.ShamanEnhancement]: {
       id: SpecializationID.ShamanEnhancement,
@@ -644,7 +667,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "enhancement",
       role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.ShamanRestoration]: {
       id: SpecializationID.ShamanRestoration,
@@ -653,7 +676,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "restoration",
       role: SpecializationRole.Healer,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.WarlockAffliction]: {
       id: SpecializationID.WarlockAffliction,
@@ -662,7 +685,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "affliction",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.WarlockDemonology]: {
       id: SpecializationID.WarlockDemonology,
@@ -671,7 +694,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "demonology",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.WarlockDestruction]: {
       id: SpecializationID.WarlockDestruction,
@@ -680,7 +703,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "destruction",
       role: SpecializationRole.RangedDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.WarriorArms]: {
       id: SpecializationID.WarriorArms,
@@ -689,7 +712,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "arms",
       role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.WarriorFury]: {
       id: SpecializationID.WarriorFury,
@@ -698,7 +721,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "fury",
       role: SpecializationRole.MeleeDPS,
-      buffs: [],
+      talents: [],
     },
     [SpecializationID.WarriorProtection]: {
       id: SpecializationID.WarriorProtection,
@@ -707,7 +730,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
       },
       name: "protection",
       role: SpecializationRole.Tank,
-      buffs: [],
+      talents: [],
     },
   });
 
@@ -746,17 +769,10 @@ export const getSpecializationIDText = (specID: SpecializationID) => {
       };
 
       break;
-    case SpecializationID.DruidFeralBear:
+    case SpecializationID.DruidFeral:
       messageDescriptor = {
         description: "Specialization name for Feral Druids focusing on tanking",
-        defaultMessage: "Feral (🐻)",
-      };
-
-      break;
-    case SpecializationID.DruidFeralCat:
-      messageDescriptor = {
-        description: "Specialization name for Feral Druids focusing on dps",
-        defaultMessage: "Feral (🐱)",
+        defaultMessage: "Feral",
       };
 
       break;
@@ -945,86 +961,403 @@ export const getSpecIconURL = (spec: Specialization) => {
 };
 
 /*
-  Buff
+  Spell
  */
-export enum BuffType {
-  RaidBuff,
-  SinglePlayerBuff,
-  Debuff,
-}
-
-export enum BuffSubType {
-  Heroism,
-  BlessingOfKings,
-  SpellPower,
-  Haste,
-  SpellHaste,
-  SpellCrit,
-  AttackPower,
-  GiftOfTheWild,
-  PhysicalCrit,
-  MeleeHaste,
-  Health,
-  StrengthAndAgility,
-  TenPercentAttackPower,
-  Damage,
-  Spirit,
-  Healing,
-  Intellect,
-  Stamina,
-}
-
-export interface Buff {
+export interface Spell {
   id: string;
   name: string;
-  type: BuffType;
-  subType: BuffSubType;
-  class: Class;
   expansion: Expansion;
+  // In truth this should be nullable,
+  // but we're not going to add any spells that don't have effects
+  effects: Effect[];
 }
 
-export type BuffID = "53138" | "55610" | "57623";
+export interface Ability extends Spell {
+  class: Class;
+}
 
-const buffDB: (expansionID: ExpansionID) => { [key: string]: Buff } = (
-  expansionID
-) => ({
+export interface Talent extends Spell {
+  spec: Specialization;
+}
+
+export type SpellID =
+  | "53138"
+  | "55610"
+  | "57623"
+  | "770"
+  | "48396"
+  | "24858"
+  | "48511"
+  | "33602"
+  | "48468"
+  | "29166"
+  | "48477"
+  | "17007"
+  | "48470";
+
+const spellDB: (expansionID: ExpansionID) => {
+  [key: string]: Ability | Talent;
+} = (expansionID) => ({
   "53138": {
     id: "53138",
     name: "Abomination's Might",
-    type: BuffType.RaidBuff,
-    subType: BuffSubType.TenPercentAttackPower,
     get class() {
       return getClass(expansionID, ClassID.DeathKnight);
+    },
+    get spec() {
+      return getSpec(expansionID, SpecializationID.DeathKnightBlood);
     },
     get expansion() {
       return getExpansion(ExpansionID.WrathOfTheLichKing);
     },
+    effects: [
+      {
+        type: EffectType.Buff,
+        scope: EffectScope.Raid,
+        subType: BuffSubType.TenPercentAttackPowerIncrease,
+      },
+    ],
   },
   "55610": {
     id: "55610",
     name: "Improved Icy Talons",
-    type: BuffType.RaidBuff,
-    subType: BuffSubType.MeleeHaste,
     get class() {
       return getClass(expansionID, ClassID.DeathKnight);
     },
     get expansion() {
       return getExpansion(ExpansionID.WrathOfTheLichKing);
     },
+    effects: [
+      {
+        type: EffectType.Buff,
+        scope: EffectScope.Raid,
+        subType: BuffSubType.TwentyPercentMeleeHasteIncrease,
+      },
+    ],
+  },
+  "49016": {
+    id: "49016",
+    name: "Unholy Frenzy",
+    get class() {
+      return getClass(expansionID, ClassID.DeathKnight);
+    },
+    get expansion() {
+      return getExpansion(ExpansionID.WrathOfTheLichKing);
+    },
+    effects: [
+      {
+        type: EffectType.ExternalBuff,
+        subType: ExternalBuff.UnholyFrenzy,
+        scope: EffectScope.Single,
+      },
+    ],
   },
   "57623": {
     id: "57623",
     name: "Horn of Winter",
-    type: BuffType.RaidBuff,
-    subType: BuffSubType.StrengthAndAgility,
     get class() {
       return getClass(expansionID, ClassID.DeathKnight);
     },
     get expansion() {
       return getExpansion(ExpansionID.WrathOfTheLichKing);
     },
+    effects: [
+      {
+        type: EffectType.Buff,
+        scope: EffectScope.Raid,
+        subType: BuffSubType.StrengthAndAgilityIncrease,
+      },
+    ],
+  },
+  "48470": {
+    id: "48470",
+    name: "Gift of the Wild",
+    get class() {
+      return getClass(expansionID, ClassID.Druid);
+    },
+    get expansion() {
+      return getExpansion(ExpansionID.WrathOfTheLichKing);
+    },
+    effects: [
+      {
+        type: EffectType.Buff,
+        scope: EffectScope.Raid,
+        subType: BuffSubType.GiftOfTheWild,
+      },
+    ],
+  },
+  "770": {
+    id: "770",
+    name: "Faerie Fire",
+    get class() {
+      return getClass(expansionID, ClassID.Druid);
+    },
+    get expansion() {
+      return getExpansion(ExpansionID.WrathOfTheLichKing);
+    },
+    effects: [
+      {
+        type: EffectType.Debuff,
+        subType: DebuffSubType.FivePercentArmorDecrease,
+        scope: EffectScope.Single,
+      },
+    ],
+  },
+  "48396": {
+    id: "48396",
+    name: "Improved Moonkin Form",
+    get expansion() {
+      return getExpansion(ExpansionID.WrathOfTheLichKing);
+    },
+    get class() {
+      return getClass(expansionID, ClassID.Druid);
+    },
+    get spec() {
+      return getSpec(expansionID, SpecializationID.DruidBalance);
+    },
+    effects: [
+      {
+        type: EffectType.Buff,
+        subType: BuffSubType.HasteIncrease,
+        scope: EffectScope.Raid,
+      },
+    ],
+  },
+  "24858": {
+    id: "24858",
+    name: "Moonkin Form",
+    get expansion() {
+      return getExpansion(ExpansionID.WrathOfTheLichKing);
+    },
+    get class() {
+      return getClass(expansionID, ClassID.Druid);
+    },
+    get spec() {
+      return getSpec(expansionID, SpecializationID.DruidBalance);
+    },
+    effects: [
+      {
+        type: EffectType.Buff,
+        subType: BuffSubType.SpellCritIncrease,
+        scope: EffectScope.Raid,
+      },
+    ],
+  },
+  "48511": {
+    id: "48511",
+    name: "Earth and Moon",
+    get expansion() {
+      return getExpansion(ExpansionID.WrathOfTheLichKing);
+    },
+    get class() {
+      return getClass(expansionID, ClassID.Druid);
+    },
+    get spec() {
+      return getSpec(expansionID, SpecializationID.DruidBalance);
+    },
+    effects: [
+      {
+        type: EffectType.Debuff,
+        subType: DebuffSubType.SpellDamage,
+        scope: EffectScope.Single,
+      },
+    ],
+  },
+  "33602": {
+    id: "33602",
+    name: "Improved Faerie Fire",
+    get expansion() {
+      return getExpansion(ExpansionID.WrathOfTheLichKing);
+    },
+    get class() {
+      return getClass(expansionID, ClassID.Druid);
+    },
+    get spec() {
+      return getSpec(expansionID, SpecializationID.DruidBalance);
+    },
+    effects: [
+      {
+        type: EffectType.Debuff,
+        subType: DebuffSubType.SpellHit,
+        scope: EffectScope.Single,
+      },
+    ],
+  },
+  "48468": {
+    id: "48468",
+    name: "Insect Swarm",
+    get expansion() {
+      return getExpansion(ExpansionID.WrathOfTheLichKing);
+    },
+    get class() {
+      return getClass(expansionID, ClassID.Druid);
+    },
+    get spec() {
+      return getSpec(expansionID, SpecializationID.DruidBalance);
+    },
+    effects: [
+      {
+        type: EffectType.Debuff,
+        subType: DebuffSubType.PhysicalHitDecrease,
+        scope: EffectScope.Single,
+      },
+    ],
+  },
+  "29166": {
+    id: "29166",
+    name: "Innervate",
+    get expansion() {
+      return getExpansion(ExpansionID.WrathOfTheLichKing);
+    },
+    get class() {
+      return getClass(expansionID, ClassID.Druid);
+    },
+    get spec() {
+      return getSpec(expansionID, SpecializationID.DruidBalance);
+    },
+    effects: [
+      {
+        type: EffectType.ManaRegeneration,
+        subType: ManaRegenerationSubType.Innervate,
+        scope: EffectScope.Single,
+      },
+    ],
+  },
+  "48477": {
+    id: "48477",
+    name: "Rebirth",
+    get expansion() {
+      return getExpansion(ExpansionID.WrathOfTheLichKing);
+    },
+    get class() {
+      return getClass(expansionID, ClassID.Druid);
+    },
+    effects: [
+      {
+        type: EffectType.Cooldown,
+        subType: CooldownSubType.BattleRez,
+        scope: EffectScope.Single,
+      },
+    ],
+  },
+  "17007": {
+    id: "17007",
+    name: "Leader of the Pack",
+    get expansion() {
+      return getExpansion(ExpansionID.WrathOfTheLichKing);
+    },
+    get class() {
+      return getClass(expansionID, ClassID.Druid);
+    },
+    get spec() {
+      return getSpec(expansionID, SpecializationID.DruidFeral);
+    },
+    effects: [
+      {
+        type: EffectType.Cooldown,
+        subType: CooldownSubType.BattleRez,
+        scope: EffectScope.Single,
+      },
+    ],
   },
 });
 
-const getBuff = (expansionID: ExpansionID, buffID: BuffID) =>
-  buffDB(expansionID)[buffID];
+const getAbility = (expansionID: ExpansionID, spellID: SpellID) =>
+  spellDB(expansionID)[spellID] as Ability;
+
+const getTalent = (expansionDB: ExpansionID, spellID: SpellID) =>
+  spellDB(expansionDB)[spellID] as Talent;
+
+/*
+  Effect
+ */
+export interface Effect {
+  type: EffectType;
+  subType:
+    | CooldownSubType
+    | ExternalBuff
+    | BuffSubType
+    | ManaRegenerationSubType
+    | DebuffSubType
+    | HealthRegenerationSubType;
+  scope: EffectScope;
+}
+
+export enum EffectType {
+  // There's probably more, but these are the only ones that matter
+  Cooldown,
+  Buff,
+  ExternalBuff,
+  ManaRegeneration,
+  HealthRegeneration,
+
+  Debuff,
+}
+
+export enum CooldownSubType {
+  Heroism,
+  BattleRez,
+}
+
+export enum BuffSubType {
+  BlessingOfKings,
+  SpellPower,
+  HasteIncrease,
+  SpellHasteIncrease,
+  SpellCritIncrease,
+  AttackPowerIncrease,
+  GiftOfTheWild,
+  PhysicalCritIncrease,
+  TwentyPercentMeleeHasteIncrease,
+  HealthIncrease,
+  StrengthAndAgilityIncrease,
+  TenPercentAttackPowerIncrease,
+  DamageIncrease,
+  SpiritIncrease,
+  HealingIncrease,
+  IntellectIncrease,
+  StaminaIncrease,
+}
+
+export enum ExternalBuff {
+  PowerInfusion,
+  UnholyFrenzy,
+  FocusMagic,
+  TricksOfTheTrade,
+}
+
+export enum DebuffSubType {
+  FivePercentArmorDecrease,
+  TwentyPercentArmorDecrease,
+  PhysicalHitDecrease,
+  PhysicalDamageDecrease,
+  SpellHit,
+  AttackSpeedDecrease,
+  SpellCrit,
+  SpellDamage,
+  Crit,
+}
+
+export enum ManaRegenerationSubType {
+  Replenishment,
+  VampiricEmbrace,
+  Revitalize,
+  ManaTideTotem,
+  ManaRegen,
+  Innervate,
+  JudgementOfWisdom,
+  HymnOfHope,
+  Rapture,
+}
+
+export enum HealthRegenerationSubType {
+  JudgementOfLight,
+  HealingStreamTotem,
+  ImprovedLeaderOfThePack,
+}
+
+export enum EffectScope {
+  Single,
+  Party,
+  Raid,
+}

@@ -38,7 +38,7 @@ export const RaidCompPage: React.FC<Props> = ({ expansion }) => {
         return monitor.isOver({ shallow: true });
       },
     }),
-    []
+    [players, setPlayers]
   );
 
   return (
