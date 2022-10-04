@@ -1,6 +1,5 @@
 import {
   ExpansionID,
-  getExpansion,
   getSpec,
   MAX_RAID_SIZE,
   Player,
@@ -10,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const encodeSpec: (specID: SpecializationID) => string = (specID) => {
-  const index = Object.keys(SpecializationID).indexOf(specID);
+  const index = Object.values(SpecializationID).indexOf(specID);
 
   if (index < 0) {
     throw new Error(`Invalid specialization ID: ${specID}`);
@@ -28,7 +27,7 @@ const decodeSpec: (encodedSpecID: string) => SpecializationID = (
     throw new Error(`Invalid encoded spec: ${encodedSpecID}`);
   }
 
-  return Object.keys(SpecializationID)[index] as SpecializationID;
+  return Object.values(SpecializationID)[index];
 };
 
 export const encodePlayer = (player: Player) => {
@@ -59,7 +58,7 @@ export const decodePlayer = (
   return {
     id: uuidv4(),
     specialization: getSpec(expansionID, specID),
-    name,
+    name: name,
   };
 };
 
@@ -77,31 +76,33 @@ export const encodePlayers: (players: (Player | undefined)[]) => string = (
   }
 
   // Hey there's no players!
-  if (lastPlayerIndex > 0) {
+  if (lastPlayerIndex < 0) {
     return "";
   }
 
   const trimmedPlayers = players.slice(0, lastPlayerIndex + 1);
 
-  return trimmedPlayers.reduce((prevValue, player) => {
-    return prevValue + "," + (player ? encodePlayer(player) : "");
-  }, "");
+  return trimmedPlayers
+    .map((player) => (player ? encodePlayer(player) : ""))
+    .join(",");
 };
 
 export const decodePlayers: (
   expansionID: ExpansionID,
-  decodeString: string
+  decodeString?: string | null
 ) => (Player | undefined)[] = (expansionID, decodeString) => {
+  if (!decodeString) {
+    return [];
+  }
+
   const playerParts = decodeString.split(",");
 
   const players = playerParts.map((encodedPlayer) =>
     decodePlayer(expansionID, encodedPlayer)
   );
 
-  const paddedPlayers = [
+  return [
     ...players,
     ...new Array(MAX_RAID_SIZE - players.length).fill(undefined),
   ];
-
-  return paddedPlayers;
 };

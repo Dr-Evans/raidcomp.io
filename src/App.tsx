@@ -13,7 +13,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path={"/"} element={<HomePage />} />
-            <Route path={"/:expansionID"} element={<RaidCompPage />} />
+            <Route path={"/:expansionIDString"} element={<RaidCompPage />} />
           </Routes>
         </BrowserRouter>
       </DndProvider>

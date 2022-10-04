@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
   ExpansionID,
   getExpansion,
@@ -24,18 +24,30 @@ import { v4 as uuidv4 } from "uuid";
 import { useDrop } from "react-dnd";
 import { FormattedMessage } from "react-intl";
 import { Close } from "@mui/icons-material";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams, useSearchParams } from "react-router-dom";
+import { decodePlayers, encodePlayers } from "../../utils/encode-decode";
 
 export const RaidCompPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  let { expansionIDString = ExpansionID.Classic } = useParams();
+  const expansionID = getExpansionID(expansionIDString);
+  const expansion = getExpansion(expansionID);
+
   const [showClearSnackbar, setShowClearSnackbar] = useState(false);
   const [showCopySnackbar, setShowCopySnackbar] = useState(false);
   const [selectedRole, setSelectedRole] = useState<
     SpecializationRole | undefined
   >();
 
-  const [players, setPlayers] = useState<(Player | undefined)[]>(
-    new Array(MAX_RAID_SIZE).fill(undefined)
-  );
+  const [players, setPlayers] = useState<(Player | undefined)[]>(() => {
+    const playersFromQuery = decodePlayers(expansionID, searchParams.get("r"));
+
+    return [
+      ...playersFromQuery,
+      ...new Array(MAX_RAID_SIZE - playersFromQuery.length).fill(undefined),
+    ];
+  });
 
   // Used for undo functionality
   const savedPlayers = useRef<(Player | undefined)[]>([]);
@@ -57,8 +69,15 @@ export const RaidCompPage = () => {
     [players, setPlayers]
   );
 
-  const { expansionID = ExpansionID.Classic } = useParams();
-  const expansion = getExpansion(getExpansionID(expansionID));
+  const setNewPlayers = useCallback(
+    (newPlayers: (Player | undefined)[]) => {
+      setPlayers(newPlayers);
+      setSearchParams({
+        r: encodePlayers(newPlayers),
+      });
+    },
+    [setPlayers, setSearchParams]
+  );
 
   if (expansionID !== ExpansionID.WrathOfTheLichKing) {
     return <Navigate to={"/"} />;
@@ -80,7 +99,7 @@ export const RaidCompPage = () => {
               };
 
               // Replace spot
-              setPlayers([
+              setNewPlayers([
                 ...players.slice(0, indexToInsert),
                 newPlayer,
                 ...players.slice(indexToInsert + 1),
@@ -97,7 +116,7 @@ export const RaidCompPage = () => {
                 (player) => player?.id === playerToRemove.id
               );
 
-              setPlayers([
+              setNewPlayers([
                 ...players.slice(0, indexToRemove),
                 undefined,
                 ...players.slice(indexToRemove + 1),
@@ -132,14 +151,14 @@ export const RaidCompPage = () => {
                 ];
               }
 
-              setPlayers(newPlayers);
+              setNewPlayers(newPlayers);
             }}
             onPlayerEdit={(newPlayer) => {
               let indexToReplace = players.findIndex(
                 (p) => p?.id === newPlayer.id
               );
 
-              setPlayers([
+              setNewPlayers([
                 ...players.slice(0, indexToReplace),
                 newPlayer,
                 ...players.slice(indexToReplace + 1),
@@ -168,7 +187,7 @@ export const RaidCompPage = () => {
                 savedPlayers.current = players;
 
                 setShowClearSnackbar(true);
-                setPlayers(new Array(MAX_RAID_SIZE).fill(undefined));
+                setNewPlayers(new Array(MAX_RAID_SIZE).fill(undefined));
               }}
             >
               <FormattedMessage
@@ -206,7 +225,7 @@ export const RaidCompPage = () => {
               color="secondary"
               size="small"
               onClick={() => {
-                setPlayers(savedPlayers.current);
+                setNewPlayers(savedPlayers.current);
               }}
             >
               <FormattedMessage
