@@ -4,11 +4,7 @@ import { ExpansionID } from "../../models";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
-export interface HomePageProps {
-  onExpansionHover: (selectedExpansion: ExpansionID) => void;
-}
-
-export const HomePage: React.FC<HomePageProps> = ({ onExpansionHover }) => {
+export const HomePage = () => {
   return (
     <Grid container spacing={2} minHeight={160}>
       <Grid item xs display="flex" justifyContent="center" alignItems="center">
@@ -16,9 +12,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onExpansionHover }) => {
           <Button
             component={RouterLink}
             to={`/${ExpansionID.WrathOfTheLichKing}`}
-            onMouseEnter={() =>
-              onExpansionHover(ExpansionID.WrathOfTheLichKing)
-            }
           >
             <FormattedMessage
               id={"home-page-wrath-title"}

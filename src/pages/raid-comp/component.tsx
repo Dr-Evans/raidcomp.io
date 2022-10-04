@@ -24,8 +24,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useDrop } from "react-dnd";
 import { FormattedMessage } from "react-intl";
 import { Close } from "@mui/icons-material";
-import { Redirect, useParams } from "react-router-dom";
-import { RouteParams } from "../../models/params";
+import { Navigate, useParams } from "react-router-dom";
 
 export const RaidCompPage = () => {
   const [showClearSnackbar, setShowClearSnackbar] = useState(false);
@@ -58,11 +57,11 @@ export const RaidCompPage = () => {
     [players, setPlayers]
   );
 
-  const { expansionID } = useParams<RouteParams>();
+  const { expansionID = ExpansionID.Classic } = useParams();
   const expansion = getExpansion(getExpansionID(expansionID));
 
   if (expansionID !== ExpansionID.WrathOfTheLichKing) {
-    return <Redirect to={"/"} />;
+    return <Navigate to={"/"} />;
   }
 
   return (
