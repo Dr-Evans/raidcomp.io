@@ -12,3 +12,7 @@ terraform {
 provider "aws" {
   region  = "us-east-1"
 }
+
+module "github_publish_to_s3" {
+  source = "./github-publish-to-s3"
+}
