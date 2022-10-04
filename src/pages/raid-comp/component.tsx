@@ -62,7 +62,7 @@ export const RaidCompPage: React.FC<Props> = ({ expansion }) => {
 
   return (
     <Grid container p={2} spacing={2} ref={dropRef}>
-      <Grid xs item>
+      <Grid xs={12} md={8} item>
         <SpecSelection
           expansion={expansion}
           onSpecClick={(newSpec) => {
@@ -144,7 +144,7 @@ export const RaidCompPage: React.FC<Props> = ({ expansion }) => {
           />
         </Box>
       </Grid>
-      <Grid xs={4} item container direction={"column"} spacing={2}>
+      <Grid xs={12} md={4} item container direction={"column"} spacing={2}>
         <Grid item>
           <ButtonGroup>
             <Button

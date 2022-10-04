@@ -38,7 +38,7 @@ export const RaidList: React.FC<Props> = ({
         )}`;
 
         return (
-          <Grid item xs={3} key={partyKey}>
+          <Grid item xs={6} md={3} key={partyKey}>
             <Typography>
               <FormattedMessage
                 id={"group-title-text"}

@@ -14,7 +14,7 @@ export const SpecSelection: React.FC<Props> = ({ expansion, onSpecClick }) => {
   return (
     <Grid container spacing={2} alignItems={"center"}>
       {expansion.classes.map((wowClass) => (
-        <Grid item xs={2} key={wowClass.id}>
+        <Grid item xs={4} md={3} key={wowClass.id}>
           <ClassBox wowClass={wowClass} onSpecClick={onSpecClick} />
         </Grid>
       ))}
