@@ -41,7 +41,10 @@ export const RaidCompPage = () => {
   >();
 
   const [players, setPlayers] = useState<(Player | undefined)[]>(() => {
-    const playersFromQuery = decodePlayers(expansionID, searchParams.get("r"));
+    let playersFromQuery: (Player | undefined)[] = [];
+    try {
+      playersFromQuery = decodePlayers(expansionID, searchParams.get("r"));
+    } catch (e) {}
 
     return [
       ...playersFromQuery,
