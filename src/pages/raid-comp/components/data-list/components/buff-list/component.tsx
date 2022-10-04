@@ -13,7 +13,10 @@ export const BuffList: React.FC<Props> = ({ players }) => {
   return (
     <Box>
       <Typography>
-        <FormattedMessage id={"buff-list-title"} defaultMessage={"Buffs"} />
+        <FormattedMessage
+          id={"buff-list-title"}
+          defaultMessage={"Buffs (Unimplemented)"}
+        />
       </Typography>
       <Grid container>
         {Object.keys(BuffSubType)
