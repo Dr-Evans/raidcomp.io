@@ -372,7 +372,6 @@ export enum SpecializationID {
   PriestShadow = "priest-shadow",
   RogueAssassination = "rogue-assassination",
   RogueCombat = "rogue-combat",
-  RogueOutlaw = "rogue-outlaw",
   RogueSubtlety = "rogue-subtlety",
   ShamanElemental = "shaman-elemental",
   ShamanEnhancement = "shaman-enhancement",
@@ -383,6 +382,9 @@ export enum SpecializationID {
   WarriorArms = "warrior-arms",
   WarriorFury = "warrior-fury",
   WarriorProtection = "warrior-protection",
+
+  RogueOutlaw = "rogue-outlaw",
+  DruidGuardian = "druid-guardian",
 }
 
 export enum SpecializationRole {
@@ -734,7 +736,7 @@ const specDB: (expansionID: ExpansionID) => { [key: string]: Specialization } =
     },
   });
 
-const getSpec = (expansionID: ExpansionID, specID: SpecializationID) =>
+export const getSpec = (expansionID: ExpansionID, specID: SpecializationID) =>
   specDB(expansionID)[specID];
 
 export const getSpecializationIDText = (specID: SpecializationID) => {
