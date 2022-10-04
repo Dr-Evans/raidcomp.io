@@ -1,20 +1,11 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { HomePage } from "./pages/home";
 import { RaidCompPage } from "./pages/raid-comp";
-import { ExpansionID, getExpansion, getExpansionID } from "./models";
+import { ExpansionID } from "./models";
 import { IntlProvider } from "react-intl";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
-
-const supportedExpansions = {
-  [ExpansionID.WrathOfTheLichKing]: true,
-};
 
 function App() {
   const [, setExpansionID] = useState(ExpansionID.Classic);
@@ -31,22 +22,7 @@ function App() {
                 }
               />
             </Route>
-            <Route
-              path={"/:expansionID"}
-              children={({ match }) =>
-                Object.keys(supportedExpansions).includes(
-                  match!.params.expansionID
-                ) ? (
-                  <RaidCompPage
-                    expansion={getExpansion(
-                      getExpansionID(match!.params.expansionID)
-                    )}
-                  />
-                ) : (
-                  <Redirect to={"/"} />
-                )
-              }
-            />
+            <Route path={"/:expansionID"} children={() => <RaidCompPage />} />
           </Switch>
         </Router>
       </DndProvider>

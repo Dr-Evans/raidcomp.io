@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import {
-  Expansion,
+  ExpansionID,
+  getExpansion,
+  getExpansionID,
   ItemType,
   MAX_RAID_SIZE,
   Player,
@@ -22,14 +24,10 @@ import { v4 as uuidv4 } from "uuid";
 import { useDrop } from "react-dnd";
 import { FormattedMessage } from "react-intl";
 import { Close } from "@mui/icons-material";
+import { Redirect, useParams } from "react-router-dom";
+import { RouteParams } from "../../models/params";
 
-interface PublicProps {
-  expansion: Expansion;
-}
-
-export type Props = PublicProps;
-
-export const RaidCompPage: React.FC<Props> = ({ expansion }) => {
+export const RaidCompPage = () => {
   const [showClearSnackbar, setShowClearSnackbar] = useState(false);
   const [showCopySnackbar, setShowCopySnackbar] = useState(false);
   const [selectedRole, setSelectedRole] = useState<
@@ -59,6 +57,13 @@ export const RaidCompPage: React.FC<Props> = ({ expansion }) => {
     }),
     [players, setPlayers]
   );
+
+  const { expansionID } = useParams<RouteParams>();
+  const expansion = getExpansion(getExpansionID(expansionID));
+
+  if (expansionID !== ExpansionID.WrathOfTheLichKing) {
+    return <Redirect to={"/"} />;
+  }
 
   return (
     <Grid container p={2} spacing={2} ref={dropRef}>
