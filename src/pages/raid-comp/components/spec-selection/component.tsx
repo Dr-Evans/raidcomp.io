@@ -1,4 +1,4 @@
-import { Expansion, ExpansionID, Specialization } from "../../../../models";
+import { Expansion, Specialization } from "../../../../models";
 import React from "react";
 import { Grid } from "@mui/material";
 import { ClassBox } from "./components/class-box";
