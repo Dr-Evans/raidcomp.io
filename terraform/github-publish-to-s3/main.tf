@@ -23,3 +23,52 @@ resource "aws_iam_user_policy" "github_publish_iam_user_policy" {
 }
 EOF
 }
+
+# Main www S3 bucket
+resource "aws_s3_bucket" "www_raidcomp_io_s3_bucket" {
+  bucket = "www.raidcomp.io"
+}
+
+resource "aws_s3_bucket_acl" "www_raidcomp_io_s3_bucket_acl" {
+  bucket = aws_s3_bucket.www_raidcomp_io_s3_bucket.bucket
+
+  acl = "public-read"
+}
+
+resource "aws_s3_bucket_cors_configuration" "www_raidcomp_io_s3_bucket_cors_configuration" {
+  bucket = aws_s3_bucket.www_raidcomp_io_s3_bucket.bucket
+
+  cors_rule {
+    allowed_headers = ["Authorization", "Content-Length"]
+    allowed_methods = ["GET", "POST"]
+    allowed_origins = ["https://${aws_s3_bucket.www_raidcomp_io_s3_bucket.bucket}"]
+    max_age_seconds = 3000
+  }
+}
+
+resource "aws_s3_bucket_website_configuration" "www_raidcomp_io_s3_bucket_website_configuration" {
+  bucket = aws_s3_bucket.www_raidcomp_io_s3_bucket.bucket
+
+  index_document {
+    suffix = "index.html"
+  }
+}
+
+# S3 bucket for redirecting non-www to www
+resource "aws_s3_bucket" "raidcomp_io_s3_bucket" {
+  bucket = "raidcomp.io"
+}
+
+resource "aws_s3_bucket_acl" "raidcomp_io_s3_bucket_acl" {
+  bucket = aws_s3_bucket.raidcomp_io_s3_bucket.bucket
+
+  acl = "public-read"
+}
+
+resource "aws_s3_bucket_website_configuration" "raidcomp_s3_bucket_website_configuration" {
+  bucket = aws_s3_bucket.raidcomp_io_s3_bucket.bucket
+
+  redirect_all_requests_to {
+    host_name = "https://${aws_s3_bucket.raidcomp_io_s3_bucket.bucket}"
+  }
+}
