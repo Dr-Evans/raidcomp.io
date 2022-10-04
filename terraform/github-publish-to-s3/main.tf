@@ -35,17 +35,6 @@ resource "aws_s3_bucket_acl" "www_raidcomp_io_s3_bucket_acl" {
   acl = "public-read"
 }
 
-resource "aws_s3_bucket_cors_configuration" "www_raidcomp_io_s3_bucket_cors_configuration" {
-  bucket = aws_s3_bucket.www_raidcomp_io_s3_bucket.bucket
-
-  cors_rule {
-    allowed_headers = ["Authorization", "Content-Length"]
-    allowed_methods = ["GET", "POST"]
-    allowed_origins = ["https://${aws_s3_bucket.www_raidcomp_io_s3_bucket.bucket}"]
-    max_age_seconds = 3000
-  }
-}
-
 resource "aws_s3_bucket_website_configuration" "www_raidcomp_io_s3_bucket_website_configuration" {
   bucket = aws_s3_bucket.www_raidcomp_io_s3_bucket.bucket
 
