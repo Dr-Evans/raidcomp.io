@@ -1,5 +1,5 @@
 # Name of workflow as seen in Github actions tab
-name: main-build-and-deploy
+name: main-build-and-deploy-to-s3
 # Run workflow only on push to dev branch
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - main
 jobs:
   # To build the project
-  build-tambola:
+  build-and-deploy-to-s3:
     runs-on: ubuntu-latest
     steps:
       - name: Checking out code
