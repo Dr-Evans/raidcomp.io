@@ -52,7 +52,7 @@ export const decodePlayer = (
 
   let name;
   if (playerParts[1]) {
-    name = playerParts[1];
+    name = decodeURIComponent(playerParts[1]);
   }
 
   return {
@@ -97,8 +97,8 @@ export const decodePlayers: (
 
   const playerParts = decodeString.split(",");
 
-  const players = playerParts.map((encodedPlayer) =>
-    decodePlayer(expansionID, encodedPlayer)
+  const players: (Player | undefined)[] = playerParts.map((encodedPlayer) =>
+    encodedPlayer ? decodePlayer(expansionID, encodedPlayer) : undefined
   );
 
   return [
