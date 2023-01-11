@@ -1,3 +1,5 @@
+**Deprecated: see [https://github.com/raidcomp/raidcomp.io](https://github.com/raidcomp/raidcomp.io)**
+
 # raidcomp.io
 
 # Front-end for raidcomp.io
